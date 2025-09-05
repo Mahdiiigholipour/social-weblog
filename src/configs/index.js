@@ -1,4 +1,14 @@
 class Config {
+  static get database() {
+    return {
+      name: this.getRequired("POSTGRES_NAME"),
+      user: this.getRequired("POSTGRES_USER"),
+      password: this.getRequired("POSTGRES_PASSWORD"),
+      port: this.getNumber("POSTGRES_PORT", 5432),
+      host: this.get("POSTGRES_HOST", "localhost"),
+    };
+  }
+
   // Helper methods
 
   static get(key, defaultValue = null) {
