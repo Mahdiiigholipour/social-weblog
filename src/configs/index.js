@@ -1,3 +1,6 @@
+import { config } from "dotenv";
+config();
+
 class Config {
   static get database() {
     return {
@@ -36,3 +39,7 @@ class Config {
     return value;
   }
 }
+
+Config.getRequired("POSTGRES_NAME");
+
+export default Config;
