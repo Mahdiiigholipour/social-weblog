@@ -9,6 +9,15 @@ class Config {
     };
   }
 
+  static get app() {
+    return {
+      port: this.getNumber("PORT", "3000"),
+      env: this.get("NODE_ENV", "development"),
+      isProduction: this.get("NODE_ENV") === "production",
+      isDevelopment: this.get("NODE_ENV") === "development",
+    };
+  }
+
   // Helper methods
 
   static get(key, defaultValue = null) {
