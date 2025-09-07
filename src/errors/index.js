@@ -6,3 +6,4 @@ export { AuthenticationError } from "./errorTypes/AuthenticationError.js";
 export { AuthorizationError } from "./errorTypes/AuthorizationError.js";
 export { DatabaseError } from "./errorTypes/DatabaseError.js";
 export { NotFoundError } from "./errorTypes/NotFoundError.js";
+export { EnvironmentVariableError } from "./errorTypes/EnvironmentVariableError.js";
