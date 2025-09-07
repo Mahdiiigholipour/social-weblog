@@ -22,6 +22,11 @@ class Database {
             acquire: 30000,
             idle: 10000,
           },
+          define: {
+            timestamps: true,
+            underscored: true,
+            freezeTableName: true,
+          },
         }
       );
       await this.testConnection();
@@ -39,6 +44,13 @@ class Database {
     } catch (error) {
       console.error("❌ Unable to connect to PostgreSQL:", error);
       throw error;
+    }
+  }
+
+  async close() {
+    if (this.sequelize) {
+      await this.sequelize.close();
+      console.log("Database connection closed");
     }
   }
 }
