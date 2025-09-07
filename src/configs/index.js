@@ -1,7 +1,7 @@
 import { config } from "dotenv";
 config();
 
-class Config {
+export class Config {
   static get database() {
     return {
       name: this.getRequired("POSTGRES_NAME"),
