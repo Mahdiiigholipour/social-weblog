@@ -1,4 +1,4 @@
-import Config from "../configs/index.js";
+import { env } from "../core/config/environment.config.js";
 export class AppError extends Error {
   constructor(message, statusCode, details = null) {
     super(message);
@@ -18,7 +18,7 @@ export class AppError extends Error {
       statusCode: this.statusCode,
       details: this.details,
       timestamp: this.timestamp,
-      ...(Config.app.isDevelopment && { stack: this.stack }),
+      ...(env.isDevelopment() && { stack: this.stack }),
     };
   }
 }

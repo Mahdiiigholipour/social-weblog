@@ -1,7 +1,8 @@
 import { ApiError } from "./ApiError.js";
 import { DatabaseError } from "./errorTypes/DatabaseError.js";
 import { ValidationError } from "./errorTypes/ValidationError.js";
-import Config from "../configs/index.js";
+import { env } from "../core/config/environment.config.js";
+import { EnvironmentVariableError } from "./errorTypes/EnvironmentVariableError.js";
 
 export class ErrorHandler {
   static handleError(error, req, res) {
@@ -21,6 +22,13 @@ export class ErrorHandler {
     // Handle validation errors
     if (error.name === "ValidationError")
       processedError = this.handleValidationError(error);
+
+    // Handle environment errors
+    if (
+      error.name === "EnvironmentVariableError" ||
+      error.code === "ENVIRONMENT_ERROR"
+    )
+      processedError = this.handleEnvironmentError(error);
 
     // Log error
     // soon ...
@@ -55,6 +63,16 @@ export class ErrorHandler {
     );
   }
 
+  static handleEnvironmentError(error) {
+    if (error.variableName)
+      return EnvironmentVariableError.missingVariable(
+        error.variableName,
+        error.details
+      );
+
+    return new EnvironmentVariableError(error.message, null, error.details);
+  }
+
   static sendErrorResponse(error, res) {
     const statusCode = error.statusCode || 500;
     const response = error.toJson
@@ -63,7 +81,7 @@ export class ErrorHandler {
           success: false,
           message: error.message || "Internal Server Error",
           statusCode,
-          ...(Config.app.isDevelopment && { stack: error.stack }),
+          ...(env.isDevelopment() && { stack: error.stack }),
         };
 
     res.status(statusCode).json(response);

@@ -88,3 +88,5 @@ export class EnvironmentConfig {
       EnvironmentVariableError.missingVariable(missingVars);
   }
 }
+
+export const env = EnvironmentConfig;

@@ -1,4 +1,4 @@
-import { HTTP_STATUS } from "../../utils/constants";
+import { HTTP_STATUS } from "../../utils/constants.js";
 import { ApiError } from "../ApiError.js";
 
 export class EnvironmentVariableError extends ApiError {
@@ -14,6 +14,7 @@ export class EnvironmentVariableError extends ApiError {
       "ENVIRONMENT_ERROR"
     );
     this.variableName = variableName;
+    this.name = "EnvironmentError";
   }
 
   static missingVariable(variableName, details = null) {
