@@ -25,11 +25,11 @@ export class EnvironmentVariableError extends ApiError {
     return new EnvironmentVariableError(message, variableName, details);
   }
 
-  static invalidFormat(variableName, expectedValue, details = null) {
+  static invalidFormat(variableName, expectedValue, recievedValue) {
     return new EnvironmentVariableError(
-      `Environment variable '${variableName}' has invalid format. Expected: ${expectedValue}`,
+      `Environment variable '${variableName}' has invalid format. Expected: ${expectedValue}. but recevie: ${recievedValue}`,
       variableName,
-      details
+      recievedValue
     );
   }
 

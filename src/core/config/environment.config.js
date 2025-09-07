@@ -33,9 +33,7 @@ export class EnvironmentConfig {
   static getNumber(key, defaultValue = 0) {
     const value = this.get(key);
     if (value && isNaN(Number(value))) {
-      EnvironmentVariableError.invalidFormat(key, "numeric value", {
-        received: value,
-      });
+      throw EnvironmentVariableError.invalidFormat(key, "numeric value", value);
     }
 
     return value ? parseInt(value, 10) : defaultValue;
@@ -44,7 +42,7 @@ export class EnvironmentConfig {
     const value = this.get(key);
 
     if (value && !["false", "true"].includes(value.toLowerCase()))
-      EnvironmentVariableError.invalidFormat(key, "boolean value", {
+      throw EnvironmentVariableError.invalidFormat(key, "boolean value", {
         recevied: value,
       });
 
@@ -52,7 +50,7 @@ export class EnvironmentConfig {
   }
   static getRequired(key, details = {}) {
     const value = this.get(key);
-    if (!value) EnvironmentVariableError.missingVariable(key, details);
+    if (!value) throw EnvironmentVariableError.missingVariable(key, details);
     return value;
   }
 
@@ -79,13 +77,14 @@ export class EnvironmentConfig {
     for (const varName of requiredVars) {
       try {
         this.getRequired(varName);
+        console.log(this.getRequired(varName));
       } catch (error) {
         missingVars.push(varName);
       }
     }
 
     if (missingVars.length > 0)
-      EnvironmentVariableError.missingVariable(missingVars);
+      throw EnvironmentVariableError.missingVariable(missingVars);
   }
 }
 
