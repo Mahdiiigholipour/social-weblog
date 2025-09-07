@@ -1,5 +1,6 @@
 import express from "express";
 import { ErrorHandler, NotFoundError } from "./errors/index.js";
+import models, { sequelize } from "./database/models/index.js";
 
 const app = express();
 
