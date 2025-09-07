@@ -17,16 +17,20 @@ class Database {
           dialect: env.database.dialect,
           logging: env.database.logging,
           pool: {
-            max: 10,
-            min: 0,
-            acquire: 30000,
-            idle: 10000,
+            max: env.isProduction() ? 20 : 10,
+            min: env.isProduction() ? 5 : 0,
+            acquire: env.isProduction() ? 60000 : 30000,
+            idle: env.isProduction() ? 30000 : 10000,
+            evict: 10000,
           },
           define: {
             timestamps: true,
             underscored: true,
             freezeTableName: true,
+            charset: "utf8mb4",
+            collate: "utf8mb4_unicode_ci",
           },
+          retry: { max: 3 },
         }
       );
       await this.testConnection();
