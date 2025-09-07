@@ -12,6 +12,12 @@ export class NotFoundError extends ApiError {
     this.name = "NotFoundError";
   }
 
+  static route(app) {
+    app.use((req, res, next) => {
+      res.status(404).json({ message: "route not found" });
+    });
+  }
+
   static user(userId) {
     return new NotFoundError("User", { userId });
   }
