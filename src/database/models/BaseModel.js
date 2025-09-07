@@ -1,6 +1,19 @@
 const { Model } = require("sequelize");
 
 export class BaseModel extends Model {
+  static async findById(id, options = {}) {
+    return await this.findByPk(id, options);
+  }
+  static async findActive(id) {
+    return await this.findByPk(id, { paranoid: false });
+  }
+  static async bulkCreateSafe(items, options = {}) {
+    return await this.bulkCreate(items, {
+      validate: true,
+      individualHooks: true,
+      ...options,
+    });
+  }
   toJSON() {
     const values = { ...super.toJSON() };
 
@@ -19,3 +32,5 @@ export class BaseModel extends Model {
     return values;
   }
 }
+
+export default BaseModel;
