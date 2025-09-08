@@ -9,7 +9,7 @@ export default class PostTag extends BaseModel {
           type: DataTypes.UUID,
           primaryKey: true,
           references: {
-            model: "post",
+            model: "Post",
             key: "id",
           },
           onDelete: "CASCADE",
@@ -18,7 +18,7 @@ export default class PostTag extends BaseModel {
           type: DataTypes.UUID,
           primaryKey: true,
           references: {
-            model: "tad",
+            model: "Tag",
             key: "id",
           },
           onDelete: "CASCADE",
