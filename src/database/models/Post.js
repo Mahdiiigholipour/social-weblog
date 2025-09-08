@@ -30,6 +30,13 @@ export default class Post extends BaseModel {
         modelName: "Post",
         tableName: "post",
         timestamps: true,
+        indexes: [
+          { fields: "user_id" },
+          { fields: "status" },
+          { fields: "content", using: "GIN" },
+          { fields: ["views"], order: "DESC" },
+          { fields: ["created_at"], order: "DESC" },
+        ],
       }
     );
   }
