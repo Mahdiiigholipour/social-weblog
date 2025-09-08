@@ -40,4 +40,39 @@ export default class Post extends BaseModel {
       }
     );
   }
+
+  static associate(models) {
+    this.belongsTo(models.User, {
+      foreignKey: "user_id",
+      as: "author",
+      onDelete: "CASCADE",
+    });
+
+    this.belongsToMany(models.Category, {
+      through: models.PostCategory,
+      as: "categories",
+      foreignKey: "post_id",
+    });
+
+    this.belongsToMany(models.Tag, {
+      through: models.PostTag,
+      as: "tags",
+      foreignKey: "post_id",
+    });
+
+    this.hasMany(models.PostLike, {
+      foreignKey: "post_id",
+      as: "likes",
+    });
+
+    this.hasMany(models.PostComment, {
+      foreignKey: "post_id",
+      as: "comments",
+    });
+
+    this.hasMany(models.Bookmark, {
+      foreignKey: "post_id",
+      as: "bookmark",
+    });
+  }
 }
