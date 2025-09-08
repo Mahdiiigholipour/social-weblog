@@ -33,6 +33,7 @@ export default class PostComment extends BaseModel {
         modelName: "PostComment",
         tableName: "post_comment",
         timestamps: true,
+        indexes: [{ fields: ["post_id"] }],
       }
     );
   }
