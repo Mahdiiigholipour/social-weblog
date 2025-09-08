@@ -27,4 +27,12 @@ export default class UserProfile extends BaseModel {
       }
     );
   }
+
+  static associate(models) {
+    this.belongsTo(models.User, {
+      foreignKey: "user_id",
+      as: "user",
+      onDelete: "CASCADE",
+    });
+  }
 }
