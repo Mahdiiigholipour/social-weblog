@@ -12,3 +12,9 @@ export const HTTP_STATUS = {
 export const REGEX = {
   USERNAME: /^[a-z0-9_\.]+$/,
 };
+
+export default POST_STATUS = {
+  DRAFT: "draft",
+  PUBLISHED: "published",
+  ARCHIVED: "archived",
+};
