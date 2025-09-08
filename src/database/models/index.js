@@ -1,3 +1,4 @@
+import { DatabaseError } from "../../errors/index.js";
 import Database from "../config/sequelize.js";
 import User from "./User.js";
 
@@ -15,11 +16,9 @@ export const initializeModels = async () => {
       if (model.associate) model.associate(models);
     });
 
-    console.log("✅ Models initialized successfully");
     return models;
   } catch (error) {
-    console.error("❌ Model initialization failed:", error);
-    throw error;
+    throw new DatabaseError("Model initialization failed:", error);
   }
 };
 

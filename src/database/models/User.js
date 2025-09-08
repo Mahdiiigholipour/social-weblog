@@ -26,27 +26,13 @@ class User extends BaseModel {
         passwordHash: {
           type: DataTypes.STRING(255),
           allowNull: false,
-          field: "password_hash",
-        },
-        createdAt: {
-          type: DataTypes.DATE,
-          defaultValue: DataTypes.NOW,
-          field: "created_at",
-        },
-        updatedAt: {
-          type: DataTypes.NOW,
-          defaultValue: DataTypes.NOW,
-          field: "updated_at",
         },
       },
       {
         sequelize,
         modelName: "User",
-        tableName: "users",
-        underscored: true,
+        tableName: "user",
         timestamps: true,
-        createdAt: "created_at",
-        updatedAt: "updated_at",
       }
     );
   }

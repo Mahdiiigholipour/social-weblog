@@ -45,9 +45,9 @@ class Database {
   async testConnection() {
     try {
       await this.sequelize.authenticate();
-      console.log("✅ PostgreSQL connection established");
+      console.log(" PostgreSQL connection established");
     } catch (error) {
-      throw new DatabaseError("❌ Unable to connect to PostgreSQL:", error);
+      throw new DatabaseError(" Unable to connect to PostgreSQL:", error);
     }
   }
 

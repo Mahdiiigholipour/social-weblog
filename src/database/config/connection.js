@@ -1,6 +1,7 @@
-import { env } from "../core/config/environment.config.js";
-import Database from "./config/sequelize.js";
-import models, { initializeModels } from "./models/index.js";
+import { env } from "../../core/config/environment.config.js";
+import Database from "./sequelize.js";
+import models, { initializeModels } from "../models/index.js";
+import { DatabaseError } from "../../errors/index.js";
 
 class DatabaseConnnection {
   constructor() {
@@ -21,25 +22,21 @@ class DatabaseConnnection {
       await this.syncModels();
 
       this.isConnected = true;
-      console.log("🎉 Database connected successfully");
 
       return { Database, models: this.initializedModels };
     } catch (error) {
-      console.error("❌ Database connection failed:", error);
-      throw error;
+      throw new DatabaseError("Database connection failed:", error);
     }
   }
 
   async syncModels() {
     try {
       await Database.getSequelize().sync({
-        force: false,
-        alter: env.isDevelopment(),
+        force: true,
+        // alter: env.isDevelopment(),
       });
-      console.log("✅ Models synchronized successfully");
     } catch (error) {
-      console.error("❌ Model synchronization failed:", error);
-      throw error;
+      throw new DatabaseError("Model synchronization failed:", error);
     }
   }
 
