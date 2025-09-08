@@ -23,6 +23,7 @@ export default class CommentLike extends BaseModel {
         modelName: "CommentLike",
         tableName: "comment_like",
         timestamps: true,
+        indexes: [{ fields: ["comment_id"] }],
       }
     );
   }
