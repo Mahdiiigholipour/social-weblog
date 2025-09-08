@@ -37,4 +37,50 @@ export default class User extends BaseModel {
       }
     );
   }
+
+  static associate(models) {
+    this.hasOne(models.UserProfile, {
+      foreignKey: "user_id",
+      as: "profile",
+      onDelete: "CASCADE",
+    });
+
+    this.hasMany(models.Post, {
+      foreignKey: "user_id",
+      as: "posts",
+      onDelete: "CASCADE",
+    });
+
+    this.hasMany(models.PostComment, {
+      foreignKey: "user_id",
+      as: "comments",
+      onDelete: "SET NULL",
+    });
+
+    this.hasMany(models.PostLike, {
+      foreignKey: "user_id",
+      as: "likes",
+      onDelete: "SET NULL",
+    });
+
+    this.hasMany(models.Bookmark, {
+      foreignKey: "user_id",
+      as: "bookmarks",
+      onDelete: "SET NULL",
+    });
+
+    this.belongsToMany(models.User, {
+      through: models.Follower,
+      as: "followers",
+      foreignKey: "following_id",
+      otherKey: "follower_id",
+    });
+
+    this.belongsToMany(models.User, {
+      through: models.Follower,
+      as: "following",
+      foreignKey: "follower_id",
+      otherKey: "following_id",
+    });
+  }
 }
