@@ -17,7 +17,7 @@ export default class Category extends BaseModel {
         sequelize,
         modelName: "Category",
         tableName: "category",
-        timestamps: true,
+        timestamps: false,
       }
     );
   }
