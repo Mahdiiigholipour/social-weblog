@@ -10,7 +10,7 @@ export default class Category extends BaseModel {
           defaultValue: DataTypes.UUIDV4,
           primaryKey: true,
         },
-        name: { type: DataTypes.STRING(50), allowNull: false },
+        name: { type: DataTypes.STRING(50), unique: true, allowNull: false },
         slug: { type: DataTypes.STRING(50), unique: true, allowNull: false },
       },
       {
