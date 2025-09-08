@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 import { BaseModel } from "./BaseModel.js";
 import { REGEX } from "../../utils/constants.js";
 
-class User extends BaseModel {
+export default class User extends BaseModel {
   static init(sequelize) {
     return super.init(
       {
@@ -33,8 +33,8 @@ class User extends BaseModel {
         modelName: "User",
         tableName: "user",
         timestamps: true,
+        hooks: {},
       }
     );
   }
 }
-export default User;
