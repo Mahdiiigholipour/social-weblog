@@ -26,6 +26,7 @@ export default class Bookmark extends BaseModel {
         modelName: "Bookmark",
         tableName: "bookmark",
         timestamps: true,
+        indexes: [{ fields: ["user_id"] }],
       }
     );
   }
