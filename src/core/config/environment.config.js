@@ -7,7 +7,7 @@ export class EnvironmentConfig {
       name: this.getRequired("POSTGRES_NAME"),
       user: this.getRequired("POSTGRES_USER"),
       password: this.getRequired("POSTGRES_PASSWORD"),
-      host: this.get("POSTGRESS_HOST", "localhost"),
+      host: this.get("POSTGRES_HOST", "localhost"),
       port: this.getNumber("POSTGRES_PORT", 5432),
       dialect: "postgres",
       logging: this.getBoolean("DB_LOGGING", false),
@@ -77,7 +77,6 @@ export class EnvironmentConfig {
     for (const varName of requiredVars) {
       try {
         this.getRequired(varName);
-        console.log(this.getRequired(varName));
       } catch (error) {
         missingVars.push(varName);
       }

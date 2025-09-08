@@ -1,13 +1,13 @@
 import { DataTypes } from "sequelize";
 import { BaseModel } from "./BaseModel.js";
 import { REGEX } from "../../utils/constants.js";
-import sequelize from "../config/sequelize.js";
+
 class User extends BaseModel {
-  static init() {
+  static init(sequelize) {
     return super.init(
       {
         id: {
-          type: DataTypes.UUIDV4,
+          type: DataTypes.UUID,
           defaultValue: DataTypes.UUIDV4,
           primaryKey: true,
         },

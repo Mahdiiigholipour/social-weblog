@@ -1,15 +1,26 @@
-import sequelize from "../config/sequelize";
-import User from "./User";
+import Database from "../config/sequelize.js";
+import User from "./User.js";
 
 const models = { User };
 
-// Initialize all models
-Object.values(models).forEach((model) => model.init());
+export const initializeModels = async () => {
+  try {
+    // Initialize all models
+    Object.values(models).forEach((model) =>
+      model.init(Database.getSequelize())
+    );
 
-// setup associations
-Object.values(models).forEach((model) => {
-  if (model.associate) model.associate(models);
-});
+    // setup associations
+    Object.values(models).forEach((model) => {
+      if (model.associate) model.associate(models);
+    });
 
-export { sequelize };
+    console.log("✅ Models initialized successfully");
+    return models;
+  } catch (error) {
+    console.error("❌ Model initialization failed:", error);
+    throw error;
+  }
+};
+
 export default models;

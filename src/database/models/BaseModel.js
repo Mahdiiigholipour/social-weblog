@@ -1,4 +1,4 @@
-const { Model } = require("sequelize");
+import { Model } from "sequelize";
 
 export class BaseModel extends Model {
   static async findById(id, options = {}) {

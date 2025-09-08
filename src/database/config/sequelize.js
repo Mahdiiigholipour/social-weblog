@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import { env } from "../../core/config/environment.config.js";
+import { DatabaseError } from "../../errors/index.js";
 class Database {
   constructor() {
     this.sequelize = null;
@@ -33,11 +34,11 @@ class Database {
           retry: { max: 3 },
         }
       );
+
       await this.testConnection();
       return this.sequelize;
     } catch (error) {
-      console.error("Database initialization failed:", error);
-      throw error;
+      throw DatabaseError.catch("Database initialization failed:", error);
     }
   }
 
@@ -46,8 +47,7 @@ class Database {
       await this.sequelize.authenticate();
       console.log("✅ PostgreSQL connection established");
     } catch (error) {
-      console.error("❌ Unable to connect to PostgreSQL:", error);
-      throw error;
+      throw new DatabaseError("❌ Unable to connect to PostgreSQL:", error);
     }
   }
 
@@ -57,6 +57,15 @@ class Database {
       console.log("Database connection closed");
     }
   }
-}
 
-export default new Database();
+  getSequelize() {
+    if (!this.sequelize)
+      throw new DatabaseError(
+        "Database not initialized. Call initialize() first"
+      );
+
+    return this.sequelize;
+  }
+}
+const databaseInstance = new Database();
+export default databaseInstance;

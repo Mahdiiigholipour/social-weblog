@@ -12,6 +12,12 @@ export class ApiError extends AppError {
     this.errorCode = errorCode;
   }
 
+  static catch(message, error) {
+    if (error.name === this.constructor.name) return error;
+
+    return new AppError(message, 500, error);
+  }
+
   static badRequest(message = "Bad Request", details = null) {
     return new ApiError(
       message,
