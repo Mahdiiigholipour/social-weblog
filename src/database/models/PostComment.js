@@ -37,4 +37,16 @@ export default class PostComment extends BaseModel {
       }
     );
   }
+
+  static associate(models) {
+    this.belongsTo(models.User, {
+      foreignKey: "user_id",
+      as: "comment_author",
+    });
+
+    this.belongsTo(models.Post, {
+      foreignKey: "post_id",
+      as: "post",
+    });
+  }
 }

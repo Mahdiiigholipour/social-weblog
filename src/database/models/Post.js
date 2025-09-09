@@ -68,6 +68,7 @@ export default class Post extends BaseModel {
     this.hasMany(models.PostComment, {
       foreignKey: "post_id",
       as: "comments",
+      onDelete: "CASCADE",
     });
 
     this.hasMany(models.Bookmark, {
