@@ -91,5 +91,11 @@ export default class User extends BaseModel {
       foreignKey: "followerId",
       otherKey: "followingId",
     });
+
+    this.belongsToMany(models.Post, {
+      through: models.PostLike,
+      foreignKey: "userId",
+      as: "likedByUsers",
+    });
   }
 }

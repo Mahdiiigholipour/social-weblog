@@ -33,4 +33,9 @@ export default class PostLike extends BaseModel {
       }
     );
   }
+
+  static associate(models) {
+    this.belongsTo(models.User, { foreignKey: "userId", as: "user" });
+    this.belongsTo(models.Post, { foreignKey: "postId", as: "post" });
+  }
 }
