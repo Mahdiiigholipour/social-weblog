@@ -71,6 +71,13 @@ export default class User extends BaseModel {
       onDelete: "CASCADE",
     });
 
+    this.belongsToMany(models.PostComment, {
+      through: models.CommentLike,
+      foreignKey: "user_id",
+      otherKey: "comment_id",
+      as: "liked_Comment",
+    });
+
     this.belongsToMany(models.User, {
       through: models.Follower,
       as: "followers",

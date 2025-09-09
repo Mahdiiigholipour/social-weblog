@@ -27,4 +27,13 @@ export default class CommentLike extends BaseModel {
       }
     );
   }
+
+  static associate(models) {
+    this.belongsTo(models.User, { foreignKey: "user_id", as: "user" });
+
+    this.belongsTo(models.PostComment, {
+      foreignKey: "comment_id",
+      as: "comment",
+    });
+  }
 }

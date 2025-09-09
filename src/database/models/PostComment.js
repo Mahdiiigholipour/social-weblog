@@ -48,5 +48,12 @@ export default class PostComment extends BaseModel {
       foreignKey: "post_id",
       as: "post",
     });
+
+    this.belongsToMany(models.User, {
+      through: CommentLike,
+      foreignKey: "comment_id",
+      otherKey: "user_id",
+      as: "liked_by",
+    });
   }
 }
