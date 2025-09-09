@@ -87,7 +87,7 @@ export default class User extends BaseModel {
 
     this.belongsToMany(models.User, {
       through: models.Follower,
-      as: "following",
+      as: "followings",
       foreignKey: "followerId",
       otherKey: "followingId",
     });

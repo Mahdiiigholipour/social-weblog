@@ -26,4 +26,9 @@ export default class Follower extends BaseModel {
       }
     );
   }
+
+  static associate(models) {
+    this.belongsTo(models.User, { foreignKey: "followerId", as: "follower" });
+    this.belongsTo(models.User, { foreignKey: "followingId", as: "following" });
+  }
 }
