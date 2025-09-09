@@ -74,8 +74,8 @@ export default class User extends BaseModel {
     this.belongsToMany(models.PostComment, {
       through: models.CommentLike,
       foreignKey: "userId",
-      otherKey: "commentID",
-      as: "likedComment",
+      otherKey: "commentId",
+      as: "likedComments",
     });
 
     this.belongsToMany(models.User, {
