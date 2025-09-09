@@ -63,10 +63,12 @@ export default class User extends BaseModel {
       onDelete: "SET NULL",
     });
 
-    this.hasMany(models.Bookmark, {
+    this.belongsToMany(models.Post, {
+      through: models.Bookmark,
       foreignKey: "user_id",
-      as: "bookmarks",
-      onDelete: "SET NULL",
+      otherKey: "post_id",
+      as: "bookmarked_post",
+      onDelete: "CASCADE",
     });
 
     this.belongsToMany(models.User, {

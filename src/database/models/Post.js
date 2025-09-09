@@ -71,9 +71,12 @@ export default class Post extends BaseModel {
       onDelete: "CASCADE",
     });
 
-    this.hasMany(models.Bookmark, {
+    this.belongsToMany(models.User, {
+      through: models.Bookmark,
       foreignKey: "post_id",
-      as: "bookmark",
+      otherKey: "user_id",
+      onDelete: "CASCADE",
+      as: "bookmarked_by",
     });
   }
 }
