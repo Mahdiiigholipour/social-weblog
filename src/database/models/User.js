@@ -40,56 +40,56 @@ export default class User extends BaseModel {
 
   static associate(models) {
     this.hasOne(models.UserProfile, {
-      foreignKey: "user_id",
+      foreignKey: "userID",
       as: "profile",
       onDelete: "CASCADE",
     });
 
     this.hasMany(models.Post, {
-      foreignKey: "user_id",
+      foreignKey: "userId",
       as: "posts",
       onDelete: "CASCADE",
     });
 
     this.hasMany(models.PostComment, {
-      foreignKey: "user_id",
+      foreignKey: "userId",
       as: "comments",
       onDelete: "SET NULL",
     });
 
     this.hasMany(models.PostLike, {
-      foreignKey: "user_id",
+      foreignKey: "userId",
       as: "likes",
       onDelete: "SET NULL",
     });
 
     this.belongsToMany(models.Post, {
       through: models.Bookmark,
-      foreignKey: "user_id",
-      otherKey: "post_id",
-      as: "bookmarked_post",
+      foreignKey: "userId",
+      otherKey: "postID",
+      as: "bookmarkedPost",
       onDelete: "CASCADE",
     });
 
     this.belongsToMany(models.PostComment, {
       through: models.CommentLike,
-      foreignKey: "user_id",
-      otherKey: "comment_id",
-      as: "liked_Comment",
+      foreignKey: "userId",
+      otherKey: "commentID",
+      as: "likedComment",
     });
 
     this.belongsToMany(models.User, {
       through: models.Follower,
       as: "followers",
-      foreignKey: "following_id",
-      otherKey: "follower_id",
+      foreignKey: "followingId",
+      otherKey: "followerId",
     });
 
     this.belongsToMany(models.User, {
       through: models.Follower,
       as: "following",
-      foreignKey: "follower_id",
-      otherKey: "following_id",
+      foreignKey: "followerId",
+      otherKey: "followingId",
     });
   }
 }

@@ -33,27 +33,27 @@ export default class PostComment extends BaseModel {
         modelName: "PostComment",
         tableName: "post_comment",
         timestamps: true,
-        indexes: [{ fields: ["post_id"] }],
+        indexes: [{ fields: ["postId"] }],
       }
     );
   }
 
   static associate(models) {
     this.belongsTo(models.User, {
-      foreignKey: "user_id",
-      as: "comment_author",
+      foreignKey: "userID",
+      as: "user",
     });
 
     this.belongsTo(models.Post, {
-      foreignKey: "post_id",
+      foreignKey: "postId",
       as: "post",
     });
 
     this.belongsToMany(models.User, {
       through: CommentLike,
-      foreignKey: "comment_id",
-      otherKey: "user_id",
-      as: "liked_by",
+      foreignKey: "commentId",
+      otherKey: "userId",
+      as: "likedBy",
     });
   }
 }

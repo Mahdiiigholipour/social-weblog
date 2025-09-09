@@ -23,16 +23,16 @@ export default class CommentLike extends BaseModel {
         modelName: "CommentLike",
         tableName: "comment_like",
         timestamps: true,
-        indexes: [{ fields: ["comment_id"] }],
+        indexes: [{ fields: ["commentId"] }],
       }
     );
   }
 
   static associate(models) {
-    this.belongsTo(models.User, { foreignKey: "user_id", as: "user" });
+    this.belongsTo(models.User, { foreignKey: "userId", as: "user" });
 
     this.belongsTo(models.PostComment, {
-      foreignKey: "comment_id",
+      foreignKey: "commentId",
       as: "comment",
     });
   }

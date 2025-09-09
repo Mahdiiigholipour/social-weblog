@@ -31,11 +31,11 @@ export default class Post extends BaseModel {
         tableName: "post",
         timestamps: true,
         indexes: [
-          { fields: "user_id" },
+          { fields: "userId" },
           { fields: "status" },
           { fields: "content", using: "GIN" },
           { fields: ["views"], order: "DESC" },
-          { fields: ["created_at"], order: "DESC" },
+          { fields: ["createdAt"], order: "DESC" },
         ],
       }
     );
@@ -43,7 +43,7 @@ export default class Post extends BaseModel {
 
   static associate(models) {
     this.belongsTo(models.User, {
-      foreignKey: "user_id",
+      foreignKey: "userId",
       as: "author",
       onDelete: "CASCADE",
     });
@@ -51,33 +51,33 @@ export default class Post extends BaseModel {
     this.belongsToMany(models.Category, {
       through: models.PostCategory,
       as: "categories",
-      foreignKey: "post_id",
-      otherKey: "category_id",
+      foreignKey: "postId",
+      otherKey: "categoryId",
     });
 
     this.belongsToMany(models.Tag, {
       through: models.PostTag,
       as: "tags",
-      foreignKey: "post_id",
+      foreignKey: "postId",
     });
 
     this.hasMany(models.PostLike, {
-      foreignKey: "post_id",
+      foreignKey: "postID",
       as: "likes",
     });
 
     this.hasMany(models.PostComment, {
-      foreignKey: "post_id",
+      foreignKey: "postID",
       as: "comments",
       onDelete: "CASCADE",
     });
 
     this.belongsToMany(models.User, {
       through: models.Bookmark,
-      foreignKey: "post_id",
-      otherKey: "user_id",
+      foreignKey: "postId",
+      otherKey: "userID",
       onDelete: "CASCADE",
-      as: "bookmarked_by",
+      as: "bookmarkedBy",
     });
   }
 }

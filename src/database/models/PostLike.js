@@ -29,7 +29,7 @@ export default class PostLike extends BaseModel {
         modelName: "PostLike",
         tableName: "post_like",
         timestamps: true,
-        indexes: [{ fields: "post_id" }],
+        indexes: [{ fields: "postID" }],
       }
     );
   }
