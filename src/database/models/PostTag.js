@@ -32,4 +32,9 @@ export default class PostTag extends BaseModel {
       }
     );
   }
+
+  static associate(models) {
+    this.belongsTo(models.Post, { foreignKey: "postId", as: "post" });
+    this.belongsTo(models.Tag, { foreignKey: "tagId", as: "tag" });
+  }
 }

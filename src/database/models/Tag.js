@@ -21,4 +21,13 @@ export default class Tag extends BaseModel {
       }
     );
   }
+
+  static associate(models) {
+    this.belongsToMany(models.Post, {
+      through: models.PostTag,
+      foreignKey: "tagId",
+      otherKey: "postId",
+      as: "posts",
+    });
+  }
 }

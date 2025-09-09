@@ -59,6 +59,7 @@ export default class Post extends BaseModel {
       through: models.PostTag,
       as: "tags",
       foreignKey: "postId",
+      otherKey: "tagId",
     });
 
     this.hasMany(models.PostLike, {
@@ -76,13 +77,13 @@ export default class Post extends BaseModel {
       through: models.Bookmark,
       foreignKey: "postId",
       otherKey: "userID",
-      onDelete: "CASCADE",
       as: "bookmarkedBy",
     });
 
     this.belongsToMany(models.User, {
       through: models.PostLike,
       foreignKey: "postId",
+      otherKey: "userId",
       as: "likedPosts",
     });
   }
