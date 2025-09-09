@@ -23,6 +23,11 @@ export default class Follower extends BaseModel {
         modelName: "Follower",
         tableName: "follower",
         timestamps: true,
+        indexes: [
+          { unique: true, fields: ["followerId", "followingId"] },
+          { fields: ["followerId"] },
+          { fields: ["followingId"] },
+        ],
       }
     );
   }
