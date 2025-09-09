@@ -29,4 +29,13 @@ export default class PostCategory extends BaseModel {
       }
     );
   }
+
+  static associate(models) {
+    this.belongsTo(models.Post, { foreignKey: "post_id", as: "post" });
+
+    this.belongsTo(models.Category, {
+      foreignKey: "category_id",
+      as: "category",
+    });
+  }
 }

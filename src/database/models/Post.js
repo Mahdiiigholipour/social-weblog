@@ -52,6 +52,7 @@ export default class Post extends BaseModel {
       through: models.PostCategory,
       as: "categories",
       foreignKey: "post_id",
+      otherKey: "category_id",
     });
 
     this.belongsToMany(models.Tag, {
