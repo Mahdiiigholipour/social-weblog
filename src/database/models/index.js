@@ -1,25 +1,12 @@
-import { DatabaseError } from "../../errors/index.js";
-import Database from "../config/sequelize.js";
-import User from "./User.js";
-
-const models = { User };
-
-export const initializeModels = async () => {
-  try {
-    // Initialize all models
-    Object.values(models).forEach((model) =>
-      model.init(Database.getSequelize())
-    );
-
-    // setup associations
-    Object.values(models).forEach((model) => {
-      if (model.associate) model.associate(models);
-    });
-
-    return models;
-  } catch (error) {
-    throw new DatabaseError("Model initialization failed:", error);
-  }
-};
-
-export default models;
+export { default as Bookmark } from "./Bookmark.js";
+export { default as Category } from "./Category.js";
+export { default as CommentLike } from "./CommentLike.js";
+export { default as Follower } from "./Follower.js";
+export { default as Post } from "./Post.js";
+export { default as PostCategory } from "./PostCategory.js";
+export { default as PostComment } from "./PostComment.js";
+export { default as PostLike } from "./PostLike.js";
+export { default as PostTag } from "./PostTag.js";
+export { default as Tag } from "./Tag.js";
+export { default as User } from "./User.js";
+export { default as UserProfile } from "./UserProfile.js";
