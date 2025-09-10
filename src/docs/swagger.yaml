@@ -1,0 +1,25 @@
+openapi: 3.0.3
+info:
+  title: Social Weblog API
+  description: Social Weblog Project API Documention
+  version: 1.0.0
+  contact:
+    name: Mahdi Gholipour
+    email: Mahdigholipourprogramming@gmail.com
+servers:
+  - url: http://localhost:3000/api
+    description: Local Server
+
+components:
+  securitySchemas:
+    bearerAuth:
+      type: http
+      schema: bearer
+      bearerFormat: JWT
+
+security:
+  - bearerAuth: []
+
+tags:
+  - name: Auth
+    description: Authentication APIs
