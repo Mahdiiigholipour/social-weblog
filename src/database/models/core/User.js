@@ -103,5 +103,12 @@ export default class User extends BaseModel {
       otherKey: "following_id",
       onDelete: "CASCADE",
     });
+
+    // Refresh token
+    this.hasOne(models.RefreshToken, {
+      foreignKey: "user_id",
+      as: "refresh_token",
+      onDelete: "CASCADE",
+    });
   }
 }

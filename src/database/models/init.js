@@ -12,6 +12,7 @@ import PostTag from "./junction/PostTag.js";
 import Tag from "./core/Tag.js";
 import User from "./core/User.js";
 import UserProfile from "./core/UserProfile.js";
+import RefreshToken from "./core/RefreshToken.js";
 
 const models = {
   Bookmark,
@@ -26,6 +27,7 @@ const models = {
   Tag,
   User,
   UserProfile,
+  RefreshToken,
 };
 
 export const initializeModels = async () => {

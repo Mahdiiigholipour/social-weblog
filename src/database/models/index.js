@@ -10,3 +10,4 @@ export { default as PostTag } from "./junction/PostTag.js";
 export { default as Tag } from "./core/Tag.js";
 export { default as User } from "./core/User.js";
 export { default as UserProfile } from "./core/UserProfile.js";
+export { default as RefreshToken } from "./core/RefreshToken.js";
