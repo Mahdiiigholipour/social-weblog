@@ -30,7 +30,7 @@ export default class UserProfile extends BaseModel {
 
   static associate(models) {
     this.belongsTo(models.User, {
-      foreignKey: "userId",
+      foreignKey: "user_id",
       as: "user",
       onDelete: "CASCADE",
     });

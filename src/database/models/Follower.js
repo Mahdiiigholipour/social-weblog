@@ -5,13 +5,13 @@ export default class Follower extends BaseModel {
   static init(sequelize) {
     return super.init(
       {
-        followerId: {
+        follower_id: {
           type: DataTypes.UUID,
           primaryKey: true,
           references: { model: "User", key: "id" },
           onDelete: "CASCADE",
         },
-        followingId: {
+        following_id: {
           type: DataTypes.UUID,
           primaryKey: true,
           references: { model: "User", key: "id" },
@@ -24,9 +24,9 @@ export default class Follower extends BaseModel {
         tableName: "follower",
         timestamps: true,
         indexes: [
-          { unique: true, fields: ["followerId", "followingId"] },
-          { fields: ["followerId"] },
-          { fields: ["followingId"] },
+          { unique: true, fields: ["follower_id", "following_id"] },
+          { fields: ["follower_id"] },
+          { fields: ["following_id"] },
         ],
       }
     );
@@ -34,12 +34,12 @@ export default class Follower extends BaseModel {
 
   static associate(models) {
     this.belongsTo(models.User, {
-      foreignKey: "followerId",
+      foreignKey: "follower_id",
       as: "follower",
       onDelete: "CASCADE",
     });
     this.belongsTo(models.User, {
-      foreignKey: "followingId",
+      foreignKey: "following_id",
       as: "following",
       onDelete: "CASCADE",
     });

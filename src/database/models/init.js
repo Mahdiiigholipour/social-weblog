@@ -30,12 +30,11 @@ const models = {
 
 export const initializeModels = async () => {
   try {
-    console.log("😆");
     // Initialize all models
     Object.values(models).forEach((model) =>
       model.init(Database.getSequelize())
     );
-    console.log("😆");
+
     // setup associations
     Object.values(models).forEach((model) => {
       if (model.associate) model.associate(models);

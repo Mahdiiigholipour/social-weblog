@@ -14,7 +14,7 @@ export default class Post extends BaseModel {
         userId: {
           type: DataTypes.UUID,
           allowNull: false,
-          references: { model: "User", key: "id" },
+          references: { model: "user", key: "id" },
           onDelete: "CASCADE",
         },
         title: {
@@ -41,23 +41,17 @@ export default class Post extends BaseModel {
         tableName: "post",
         timestamps: true,
         indexes: [
-          { fields: ["userId"] },
+          { fields: ["user_id"] },
           { fields: ["status"] },
           { fields: ["content"], using: "GIN" },
           {
-            name: "posts_views_desc",
-            fields: { name: "views", order: "DESC" },
+            name: "post_views_desc",
+            fields: [{ name: "views", order: "DESC" }],
           },
-          // { name: "posts_views_desc", fields: ["views"], order: "DESC" },
           {
             name: "posts_created_at_desc",
-            fields: { name: "createdAt", order: "DESC" },
+            fields: [{ name: "created_at", order: "DESC" }],
           },
-          // {
-          //   name: "posts_created_at_desc",
-          //   fields: ["createdAt"],
-          //   order: "DESC",
-          // },
         ],
       }
     );
@@ -66,7 +60,7 @@ export default class Post extends BaseModel {
   static associate(models) {
     // User
     this.belongsTo(models.User, {
-      foreignKey: "userId",
+      foreignKey: "user_id",
       as: "author",
       onDelete: "CASCADE",
     });
@@ -75,29 +69,29 @@ export default class Post extends BaseModel {
     this.belongsToMany(models.Category, {
       through: models.PostCategory,
       as: "categories",
-      foreignKey: "postId",
-      otherKey: "categoryId",
+      foreignKey: "post_id",
+      otherKey: "category_id",
     });
 
     // Post tag
     this.belongsToMany(models.Tag, {
       through: models.PostTag,
       as: "tags",
-      foreignKey: "postId",
-      otherKey: "tagId",
+      foreignKey: "post_id",
+      otherKey: "tag_id",
     });
 
     // Post like
     this.belongsToMany(models.User, {
       through: models.PostLike,
-      foreignKey: "postId",
-      otherKey: "userId",
-      as: "likedPosts",
+      foreignKey: "post_id",
+      otherKey: "user_id",
+      as: "liked_posts",
     });
 
     // Post comments
     this.hasMany(models.PostComment, {
-      foreignKey: "postId",
+      foreignKey: "post_id",
       as: "comments",
       onDelete: "CASCADE",
     });
@@ -105,9 +99,9 @@ export default class Post extends BaseModel {
     // Post bookmarks
     this.belongsToMany(models.User, {
       through: models.Bookmark,
-      foreignKey: "postId",
-      otherKey: "userId",
-      as: "bookmarkedBy",
+      foreignKey: "post_id",
+      otherKey: "user_id",
+      as: "bookmarked_by",
     });
   }
 }

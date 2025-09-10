@@ -30,10 +30,9 @@ export default class PostLike extends BaseModel {
         tableName: "post_like",
         timestamps: true,
         indexes: [
-          { fields: ["postId"] },
-          { fields: ["userId"] },
-          { unique: true, fields: ["userId", "postId"] },
-          { fields: ["userId", "postId"] },
+          { fields: ["post_id"] },
+          { fields: ["user_id"] },
+          { unique: true, fields: ["user_id", "post_id"] },
         ],
       }
     );
@@ -41,12 +40,12 @@ export default class PostLike extends BaseModel {
 
   static associate(models) {
     this.belongsTo(models.User, {
-      foreignKey: "userId",
+      foreignKey: "user_id",
       as: "user",
       onDelete: "CASCADE",
     });
     this.belongsTo(models.Post, {
-      foreignKey: "postId",
+      foreignKey: "post_id",
       as: "post",
       onDelete: "CASCADE",
     });

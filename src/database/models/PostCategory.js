@@ -27,9 +27,9 @@ export default class PostCategory extends BaseModel {
         tableName: "post_category",
         timestamps: true,
         indexes: [
-          { unique: true, fields: ["postId", "categoryId"] },
-          { fields: ["postId"] },
-          { fields: ["categoryId"] },
+          { unique: true, fields: ["post_id", "category_id"] },
+          { fields: ["post_id"] },
+          { fields: ["category_id"] },
         ],
       }
     );
@@ -37,13 +37,13 @@ export default class PostCategory extends BaseModel {
 
   static associate(models) {
     this.belongsTo(models.Post, {
-      foreignKey: "postId",
+      foreignKey: "post_id",
       as: "post",
       onDelete: "CASCADE",
     });
 
     this.belongsTo(models.Category, {
-      foreignKey: "categoryId",
+      foreignKey: "category_id",
       as: "category",
       onDelete: "CASCADE",
     });

@@ -25,8 +25,8 @@ export default class Tag extends BaseModel {
   static associate(models) {
     this.belongsToMany(models.Post, {
       through: models.PostTag,
-      foreignKey: "tagId",
-      otherKey: "postId",
+      foreignKey: "tag_id",
+      otherKey: "post_id",
       as: "posts",
     });
   }

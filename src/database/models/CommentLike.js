@@ -24,9 +24,9 @@ export default class CommentLike extends BaseModel {
         tableName: "comment_like",
         timestamps: true,
         indexes: [
-          { fields: ["commentId"] },
-          { fields: ["userId"] },
-          { unique: true, fields: ["commentId", "userId"] },
+          { fields: ["comment_id"] },
+          { fields: ["user_id"] },
+          { unique: true, fields: ["comment_id", "user_id"] },
         ],
       }
     );
@@ -34,13 +34,13 @@ export default class CommentLike extends BaseModel {
 
   static associate(models) {
     this.belongsTo(models.User, {
-      foreignKey: "userId",
+      foreignKey: "user_id",
       as: "user",
       onDelete: "CASCADE",
     });
 
     this.belongsTo(models.PostComment, {
-      foreignKey: "commentId",
+      foreignKey: "comment_id",
       as: "comment",
       onDelete: "CASCADE",
     });

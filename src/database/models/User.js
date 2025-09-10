@@ -41,14 +41,14 @@ export default class User extends BaseModel {
   static associate(models) {
     // Profile
     this.hasOne(models.UserProfile, {
-      foreignKey: "userId",
+      foreignKey: "user_id",
       as: "profile",
       onDelete: "CASCADE",
     });
 
     // Posts
     this.hasMany(models.Post, {
-      foreignKey: "userId",
+      foreignKey: "user_id",
       as: "posts",
       onDelete: "CASCADE",
     });
@@ -56,23 +56,23 @@ export default class User extends BaseModel {
     // Post bookmarks
     this.belongsToMany(models.Post, {
       through: models.Bookmark,
-      foreignKey: "userId",
-      otherKey: "postId",
-      as: "bookmarkedPosts",
+      foreignKey: "user_id",
+      otherKey: "post_id",
+      as: "bookmarked_posts",
       onDelete: "CASCADE",
     });
 
     // Post likes
     this.belongsToMany(models.Post, {
       through: models.PostLike,
-      foreignKey: "userId",
-      as: "likedPosts",
+      foreignKey: "user_id",
+      as: "liked_posts",
       onDelete: "CASCADE",
     });
 
     // Post comments
     this.hasMany(models.PostComment, {
-      foreignKey: "userId",
+      foreignKey: "user_id",
       as: "comments",
       onDelete: "SET NULL",
     });
@@ -80,9 +80,9 @@ export default class User extends BaseModel {
     // Comment likes
     this.belongsToMany(models.PostComment, {
       through: models.CommentLike,
-      foreignKey: "userId",
-      otherKey: "commentId",
-      as: "likedComments",
+      foreignKey: "user_id",
+      otherKey: "comment_id",
+      as: "liked_comments",
       onDelete: "CASCADE",
     });
 
@@ -90,8 +90,8 @@ export default class User extends BaseModel {
     this.belongsToMany(models.User, {
       through: models.Follower,
       as: "followers",
-      foreignKey: "followingId",
-      otherKey: "followerId",
+      foreignKey: "following_id",
+      otherKey: "follower_id",
       onDelete: "CASCADE",
     });
 
@@ -99,8 +99,8 @@ export default class User extends BaseModel {
     this.belongsToMany(models.User, {
       through: models.Follower,
       as: "followings",
-      foreignKey: "followerId",
-      otherKey: "followingId",
+      foreignKey: "follower_id",
+      otherKey: "following_id",
       onDelete: "CASCADE",
     });
   }

@@ -26,20 +26,20 @@ export default class Bookmark extends BaseModel {
         modelName: "Bookmark",
         tableName: "bookmark",
         timestamps: true,
-        indexes: [{ fields: ["userId"] }],
+        indexes: [{ fields: ["user_id"] }],
       }
     );
   }
 
   static associate(models) {
     this.belongsTo(models.User, {
-      foreignKey: "userId",
+      foreignKey: "user_id",
       as: "user",
       onDelete: "CASCADE",
     });
 
     this.belongsTo(models.Post, {
-      foreignKey: "postId",
+      foreignKey: "post_id",
       as: "post",
       onDelete: "CASCADE",
     });

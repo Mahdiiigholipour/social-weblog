@@ -25,7 +25,7 @@ class DatabaseConnnection {
 
       return { Database, models: this.initializedModels };
     } catch (error) {
-      throw new DatabaseError("Database connection failed:", error);
+      throw DatabaseError.catch("Database connection failed:", error);
     }
   }
 

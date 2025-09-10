@@ -30,9 +30,9 @@ export default class PostTag extends BaseModel {
         tableName: "post_tag",
         timestamps: false,
         indexes: [
-          { unique: true, fields: ["postId", "tagId"] },
-          { fields: ["postId"] },
-          { fields: ["tagId"] },
+          { unique: true, fields: ["post_id", "tag_id"] },
+          { fields: ["post_id"] },
+          { fields: ["tag_id"] },
         ],
       }
     );
@@ -40,12 +40,12 @@ export default class PostTag extends BaseModel {
 
   static associate(models) {
     this.belongsTo(models.Post, {
-      foreignKey: "postId",
+      foreignKey: "post_id",
       as: "post",
       onDelete: "CASCADE",
     });
     this.belongsTo(models.Tag, {
-      foreignKey: "tagId",
+      foreignKey: "tag_id",
       as: "tag",
       onDelete: "CASCADE",
     });
