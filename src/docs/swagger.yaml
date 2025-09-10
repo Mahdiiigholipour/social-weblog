@@ -23,3 +23,7 @@ security:
 tags:
   - name: Auth
     description: Authentication APIs
+
+paths:
+  /auth/register:
+    $ref: "./auth.yaml#/paths/~1auth~1register"

@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import { BaseModel } from "../BaseModel.js";
 import { REGEX } from "../../../utils/constants.js";
+import { DatabaseError } from "../../../errors/index.js";
 
 export default class User extends BaseModel {
   static init(sequelize) {
@@ -110,5 +111,11 @@ export default class User extends BaseModel {
       as: "refresh_token",
       onDelete: "CASCADE",
     });
+  }
+
+  static async NotExist(username) {
+    const user = await this.findOne({ where: { username } });
+    if (user) throw DatabaseError.conflict("User already exist.", { username });
+    return true;
   }
 }

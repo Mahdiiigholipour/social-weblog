@@ -1,0 +1,44 @@
+paths:
+  /auth/register:
+    post:
+      summary: Register a new user
+      description: create new user account with username & password
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                  description: unique username
+                  example: "User_01"
+                password:
+                  type: string
+                  format: password
+                  minLength: 8
+                  example: "Str0nG_P@$$w0rD"
+      response:
+        "201":
+          description: User created succussfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: User registered succussfully
+                  userId:
+                    type: string
+                    example: "4b1e4567-8b01-71c4-617d-2e6f3e5767db"
+        "400":
+          description: Invalid inputs or duplicate username
+        "500":
+          description: Internal Server Error
