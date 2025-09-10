@@ -25,6 +25,14 @@ export class EnvironmentConfig {
       nodeEnv: this.get("NODE_ENV", "development"),
     };
   }
+  static get security() {
+    return {
+      accessSec: this.getRequired("JWT_ACCESS_TOKEN"),
+      accessExp: this.get("JWT_ACCESS_EXPIRES", "15m"),
+      refreshHashSec: this.getRequired("REFRESH_TOKEN_HASH_SECRET"),
+      refreshExp: this.get("REFRESH_TOKEN_EXPIRES", "15d"),
+    };
+  }
 
   // Helper methods
   static get(key, defaultValue = null) {
