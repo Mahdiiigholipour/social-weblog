@@ -5,6 +5,9 @@ import { swaggerMiddleware } from "./config/swagger.js";
 
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 //Connect to database
 await dbConnection.connect();
 
