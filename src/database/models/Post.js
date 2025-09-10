@@ -41,15 +41,23 @@ export default class Post extends BaseModel {
         tableName: "post",
         timestamps: true,
         indexes: [
-          { fields: "userId" },
-          { fields: "status" },
+          { fields: ["userId"] },
+          { fields: ["status"] },
           { fields: ["content"], using: "GIN" },
-          { name: "posts_views_desc", fields: ["views"], order: "DESC" },
+          {
+            name: "posts_views_desc",
+            fields: { name: "views", order: "DESC" },
+          },
+          // { name: "posts_views_desc", fields: ["views"], order: "DESC" },
           {
             name: "posts_created_at_desc",
-            fields: ["createdAt"],
-            order: "DESC",
+            fields: { name: "createdAt", order: "DESC" },
           },
+          // {
+          //   name: "posts_created_at_desc",
+          //   fields: ["createdAt"],
+          //   order: "DESC",
+          // },
         ],
       }
     );

@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import BaseModel from "./BaseModel";
+import BaseModel from "./BaseModel.js";
 
 export default class PostLike extends BaseModel {
   static init(sequelize) {

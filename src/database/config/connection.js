@@ -1,6 +1,6 @@
 import { env } from "../../core/config/environment.config.js";
 import Database from "./sequelize.js";
-import models, { initializeModels } from "../models/index.js";
+import models, { initializeModels } from "../models/init.js";
 import { DatabaseError } from "../../errors/index.js";
 
 class DatabaseConnnection {
