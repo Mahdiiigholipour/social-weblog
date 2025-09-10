@@ -105,7 +105,7 @@ export default class User extends BaseModel {
     });
 
     // Refresh token
-    this.hasOne(models.RefreshToken, {
+    this.hasMany(models.RefreshToken, {
       foreignKey: "user_id",
       as: "refresh_token",
       onDelete: "CASCADE",
