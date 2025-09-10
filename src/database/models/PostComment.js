@@ -26,21 +26,25 @@ export default class PostComment extends BaseModel {
           },
           onDelete: "SET NULL",
         },
-        content: { type: DataTypes.TEXT, allowNull: false },
+        content: {
+          type: DataTypes.TEXT,
+          allowNull: false,
+          validate: { notEmpty: true },
+        },
       },
       {
         sequelize,
         modelName: "PostComment",
         tableName: "post_comment",
         timestamps: true,
-        indexes: [{ fields: ["postId"] }],
+        indexes: [{ fields: ["postId"] }, { fields: ["userId"] }],
       }
     );
   }
 
   static associate(models) {
     this.belongsTo(models.User, {
-      foreignKey: "userID",
+      foreignKey: "userId",
       as: "user",
     });
 

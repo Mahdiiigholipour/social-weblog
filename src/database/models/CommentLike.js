@@ -15,7 +15,7 @@ export default class CommentLike extends BaseModel {
           type: DataTypes.UUID,
           primaryKey: true,
           references: { model: "User", key: "id" },
-          onDelete: "SET NULL",
+          onDelete: "CASCADE",
         },
       },
       {
@@ -23,17 +23,26 @@ export default class CommentLike extends BaseModel {
         modelName: "CommentLike",
         tableName: "comment_like",
         timestamps: true,
-        indexes: [{ fields: ["commentId"] }],
+        indexes: [
+          { fields: ["commentId"] },
+          { fields: ["userId"] },
+          { unique: true, fields: ["commentId", "userId"] },
+        ],
       }
     );
   }
 
   static associate(models) {
-    this.belongsTo(models.User, { foreignKey: "userId", as: "user" });
+    this.belongsTo(models.User, {
+      foreignKey: "userId",
+      as: "user",
+      onDelete: "CASCADE",
+    });
 
     this.belongsTo(models.PostComment, {
       foreignKey: "commentId",
       as: "comment",
+      onDelete: "CASCADE",
     });
   }
 }

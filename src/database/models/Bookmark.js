@@ -12,7 +12,7 @@ export default class Bookmark extends BaseModel {
             model: "User",
             key: "id",
           },
-          onDelete: "SET NULL",
+          onDelete: "CASCADE",
         },
         postId: {
           type: DataTypes.UUID,
@@ -35,8 +35,13 @@ export default class Bookmark extends BaseModel {
     this.belongsTo(models.User, {
       foreignKey: "userId",
       as: "user",
+      onDelete: "CASCADE",
     });
 
-    this.belongsTo(models.Post, { foreignKey: "postId", as: "post" });
+    this.belongsTo(models.Post, {
+      foreignKey: "postId",
+      as: "post",
+      onDelete: "CASCADE",
+    });
   }
 }

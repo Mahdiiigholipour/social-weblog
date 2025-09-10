@@ -9,13 +9,13 @@ export default class Follower extends BaseModel {
           type: DataTypes.UUID,
           primaryKey: true,
           references: { model: "User", key: "id" },
-          onDelete: "SET NULL",
+          onDelete: "CASCADE",
         },
         followingId: {
           type: DataTypes.UUID,
           primaryKey: true,
           references: { model: "User", key: "id" },
-          onDelete: "SET NULL",
+          onDelete: "CASCADE",
         },
       },
       {
@@ -33,7 +33,15 @@ export default class Follower extends BaseModel {
   }
 
   static associate(models) {
-    this.belongsTo(models.User, { foreignKey: "followerId", as: "follower" });
-    this.belongsTo(models.User, { foreignKey: "followingId", as: "following" });
+    this.belongsTo(models.User, {
+      foreignKey: "followerId",
+      as: "follower",
+      onDelete: "CASCADE",
+    });
+    this.belongsTo(models.User, {
+      foreignKey: "followingId",
+      as: "following",
+      onDelete: "CASCADE",
+    });
   }
 }

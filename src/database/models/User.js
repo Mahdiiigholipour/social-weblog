@@ -39,63 +39,69 @@ export default class User extends BaseModel {
   }
 
   static associate(models) {
+    // Profile
     this.hasOne(models.UserProfile, {
-      foreignKey: "userID",
+      foreignKey: "userId",
       as: "profile",
       onDelete: "CASCADE",
     });
 
+    // Posts
     this.hasMany(models.Post, {
       foreignKey: "userId",
       as: "posts",
       onDelete: "CASCADE",
     });
 
+    // Post bookmarks
+    this.belongsToMany(models.Post, {
+      through: models.Bookmark,
+      foreignKey: "userId",
+      otherKey: "postId",
+      as: "bookmarkedPosts",
+      onDelete: "CASCADE",
+    });
+
+    // Post likes
+    this.belongsToMany(models.Post, {
+      through: models.PostLike,
+      foreignKey: "userId",
+      as: "likedPosts",
+      onDelete: "CASCADE",
+    });
+
+    // Post comments
     this.hasMany(models.PostComment, {
       foreignKey: "userId",
       as: "comments",
       onDelete: "SET NULL",
     });
 
-    this.hasMany(models.PostLike, {
-      foreignKey: "userId",
-      as: "likes",
-      onDelete: "SET NULL",
-    });
-
-    this.belongsToMany(models.Post, {
-      through: models.Bookmark,
-      foreignKey: "userId",
-      otherKey: "postID",
-      as: "bookmarkedPost",
-      onDelete: "CASCADE",
-    });
-
+    // Comment likes
     this.belongsToMany(models.PostComment, {
       through: models.CommentLike,
       foreignKey: "userId",
       otherKey: "commentId",
       as: "likedComments",
+      onDelete: "CASCADE",
     });
 
+    // Follower
     this.belongsToMany(models.User, {
       through: models.Follower,
       as: "followers",
       foreignKey: "followingId",
       otherKey: "followerId",
+      onDelete: "CASCADE",
     });
 
+    // Following
     this.belongsToMany(models.User, {
       through: models.Follower,
       as: "followings",
       foreignKey: "followerId",
       otherKey: "followingId",
-    });
-
-    this.belongsToMany(models.Post, {
-      through: models.PostLike,
-      foreignKey: "userId",
-      as: "likedByUsers",
+      onDelete: "CASCADE",
     });
   }
 }
