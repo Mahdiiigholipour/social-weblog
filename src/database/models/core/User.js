@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
-import { BaseModel } from "./BaseModel.js";
-import { REGEX } from "../../utils/constants.js";
+import { BaseModel } from "../BaseModel.js";
+import { REGEX } from "../../../utils/constants.js";
 
 export default class User extends BaseModel {
   static init(sequelize) {

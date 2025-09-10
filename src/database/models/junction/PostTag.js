@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
-import BaseModel from "./BaseModel.js";
+import BaseModel from "../BaseModel.js";
 
-export default class PostCategory extends BaseModel {
+export default class PostTag extends BaseModel {
   static init(sequelize) {
     return super.init(
       {
@@ -14,22 +14,25 @@ export default class PostCategory extends BaseModel {
           },
           onDelete: "CASCADE",
         },
-        categoryId: {
+        tagId: {
           type: DataTypes.UUID,
           primaryKey: true,
-          references: { model: "Category", key: "id" },
+          references: {
+            model: "Tag",
+            key: "id",
+          },
           onDelete: "CASCADE",
         },
       },
       {
         sequelize,
-        modelName: "PostCategory",
-        tableName: "post_category",
-        timestamps: true,
+        modelName: "PostTag",
+        tableName: "post_tag",
+        timestamps: false,
         indexes: [
-          { unique: true, fields: ["post_id", "category_id"] },
+          { unique: true, fields: ["post_id", "tag_id"] },
           { fields: ["post_id"] },
-          { fields: ["category_id"] },
+          { fields: ["tag_id"] },
         ],
       }
     );
@@ -41,10 +44,9 @@ export default class PostCategory extends BaseModel {
       as: "post",
       onDelete: "CASCADE",
     });
-
-    this.belongsTo(models.Category, {
-      foreignKey: "category_id",
-      as: "category",
+    this.belongsTo(models.Tag, {
+      foreignKey: "tag_id",
+      as: "tag",
       onDelete: "CASCADE",
     });
   }

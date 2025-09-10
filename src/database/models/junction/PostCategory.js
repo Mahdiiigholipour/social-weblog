@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
-import BaseModel from "./BaseModel.js";
+import BaseModel from "../BaseModel.js";
 
-export default class PostLike extends BaseModel {
+export default class PostCategory extends BaseModel {
   static init(sequelize) {
     return super.init(
       {
@@ -14,39 +14,37 @@ export default class PostLike extends BaseModel {
           },
           onDelete: "CASCADE",
         },
-        userId: {
+        categoryId: {
           type: DataTypes.UUID,
           primaryKey: true,
-          references: {
-            model: "User",
-            key: "id",
-          },
+          references: { model: "Category", key: "id" },
           onDelete: "CASCADE",
         },
       },
       {
         sequelize,
-        modelName: "PostLike",
-        tableName: "post_like",
+        modelName: "PostCategory",
+        tableName: "post_category",
         timestamps: true,
         indexes: [
+          { unique: true, fields: ["post_id", "category_id"] },
           { fields: ["post_id"] },
-          { fields: ["user_id"] },
-          { unique: true, fields: ["user_id", "post_id"] },
+          { fields: ["category_id"] },
         ],
       }
     );
   }
 
   static associate(models) {
-    this.belongsTo(models.User, {
-      foreignKey: "user_id",
-      as: "user",
-      onDelete: "CASCADE",
-    });
     this.belongsTo(models.Post, {
       foreignKey: "post_id",
       as: "post",
+      onDelete: "CASCADE",
+    });
+
+    this.belongsTo(models.Category, {
+      foreignKey: "category_id",
+      as: "category",
       onDelete: "CASCADE",
     });
   }

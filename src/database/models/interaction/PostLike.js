@@ -1,10 +1,19 @@
 import { DataTypes } from "sequelize";
-import BaseModel from "./BaseModel.js";
+import BaseModel from "../BaseModel.js";
 
-export default class Bookmark extends BaseModel {
+export default class PostLike extends BaseModel {
   static init(sequelize) {
     return super.init(
       {
+        postId: {
+          type: DataTypes.UUID,
+          primaryKey: true,
+          references: {
+            model: "Post",
+            key: "id",
+          },
+          onDelete: "CASCADE",
+        },
         userId: {
           type: DataTypes.UUID,
           primaryKey: true,
@@ -14,19 +23,17 @@ export default class Bookmark extends BaseModel {
           },
           onDelete: "CASCADE",
         },
-        postId: {
-          type: DataTypes.UUID,
-          primaryKey: true,
-          references: { model: "Post", key: "id" },
-          onDelete: "CASCADE",
-        },
       },
       {
         sequelize,
-        modelName: "Bookmark",
-        tableName: "bookmark",
+        modelName: "PostLike",
+        tableName: "post_like",
         timestamps: true,
-        indexes: [{ fields: ["user_id"] }],
+        indexes: [
+          { fields: ["post_id"] },
+          { fields: ["user_id"] },
+          { unique: true, fields: ["user_id", "post_id"] },
+        ],
       }
     );
   }
@@ -37,7 +44,6 @@ export default class Bookmark extends BaseModel {
       as: "user",
       onDelete: "CASCADE",
     });
-
     this.belongsTo(models.Post, {
       foreignKey: "post_id",
       as: "post",
