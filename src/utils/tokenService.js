@@ -70,4 +70,11 @@ export default class Token {
 
     return computedHash === storedHash;
   }
+
+  autoSign(user, refreshToken = null) {
+    const { token: accessToken } = this.signAccessToken(user);
+    const { raw, hash } = this.genRefreshHash(refreshToken);
+
+    return { accessToken, raw, hash };
+  }
 }
