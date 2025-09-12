@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import { BaseModel } from "../BaseModel.js";
+import { AuthenticationError } from "../../../errors/index.js";
 export default class RefreshToken extends BaseModel {
   static init(sequelize) {
     super.init(
@@ -46,7 +47,12 @@ export default class RefreshToken extends BaseModel {
     this.belongsTo(models.User, { foreignKey: "user_id", as: "user" });
   }
 
-  static revokeUserTokens(userId) {
-    this.update({ revoked: true }, { where: { userId } });
+  static async revokeUserTokens(userId) {
+    await this.update({ revoked: true }, { where: { userId } });
+  }
+
+  static async findByHash(hash) {
+    const tokenRecord = await this.findOne({ where: { tokenHash: hash } });
+    if (!tokenRecord) throw AuthenticationError.invalidToken();
   }
 }
