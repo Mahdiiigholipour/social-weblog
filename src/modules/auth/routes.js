@@ -4,6 +4,7 @@ import AuthService from "./service.js";
 import { RefreshToken, User } from "../../database/models/index.js";
 import Token from "../../utils/tokenService.js";
 import ErrorHandler from "../../errors/ErrorHandler.js";
+import { authenticate } from "../../middlewares/authenticate.js";
 
 const Handle = ErrorHandler.asyncHandler;
 const tokenService = new Token();
@@ -14,6 +15,6 @@ export const router = Router();
 
 router.post("/register", Handle(Controller.register));
 router.post("/login", Handle(Controller.login));
-router.post("/refresh", Handle(Controller.refresh));
-router.post("/logout", Handle(Controller.logout));
+router.post("/refresh", authenticate, Handle(Controller.refresh));
+router.post("/logout", authenticate, Handle(Controller.logout));
 router.post("/logoutAll", Handle(Controller.revokeAll));

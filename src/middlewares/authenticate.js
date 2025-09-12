@@ -1,7 +1,7 @@
 import { AuthenticationError } from "../errors";
 import Token from "../utils/tokenService";
 
-export default authenticate = async (req, res, next) => {
+export const authenticate = async (req, res, next) => {
   const tokenService = new Token();
   try {
     const token =
