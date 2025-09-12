@@ -1,9 +1,9 @@
-import { HTTP_STATUS } from "../../utils/constants.js";
+import { ERROR_CODES, HTTP_STATUS } from "../../utils/constants/Errors.js";
 import { ApiError } from "../ApiError.js";
 
 export class AuthorizationError extends ApiError {
   constructor(message = "Access denied", details = null) {
-    super(message, HTTP_STATUS.FORBIDDEN, details, "AUTHORIZATION_ERROR");
+    super(message, HTTP_STATUS.FORBIDDEN, details, ERROR_CODES.AUTHORIZATION);
     this.name = "AuthorizationError";
   }
 

@@ -1,4 +1,4 @@
-import { HTTP_STATUS } from "../../utils/constants.js";
+import { ERROR_CODES, HTTP_STATUS } from "../../utils/constants/Errors.js";
 import { ApiError } from "../ApiError.js";
 
 export class NotFoundError extends ApiError {
@@ -7,7 +7,7 @@ export class NotFoundError extends ApiError {
       `${resourse} not found`,
       HTTP_STATUS.NOT_FOUND,
       details,
-      "NOT_FOUND_ERROR"
+      ERROR_CODES.NOT_FOUND
     );
     this.name = "NotFoundError";
   }

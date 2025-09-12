@@ -1,4 +1,4 @@
-import { HTTP_STATUS } from "../../utils/constants.js";
+import { ERROR_CODES, HTTP_STATUS } from "../../utils/constants/Errors.js";
 import { ApiError } from "../ApiError.js";
 
 export class DatabaseError extends ApiError {
@@ -7,7 +7,7 @@ export class DatabaseError extends ApiError {
       message,
       HTTP_STATUS.INTERNAL_SERVER_ERROR,
       details,
-      "DATABASE_ERROR"
+      ERROR_CODES.DATABASE
     );
     this.name = "DatabaseError";
   }

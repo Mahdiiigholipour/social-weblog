@@ -1,8 +1,13 @@
-import { HTTP_STATUS } from "../../utils/constants.js";
+import { ERROR_CODES, HTTP_STATUS } from "../../utils/constants/Errors.js";
 import { ApiError } from "../ApiError.js";
 export class AuthenticationError extends ApiError {
   constructor(message = "Authentication failed", details = null) {
-    super(message, HTTP_STATUS.UNAUTHORIZED, details, "AUTHENTICATION_ERROR");
+    super(
+      message,
+      HTTP_STATUS.UNAUTHORIZED,
+      details,
+      ERROR_CODES.AUTHENTICATION
+    );
     this.name = "AuthenticationError";
   }
 

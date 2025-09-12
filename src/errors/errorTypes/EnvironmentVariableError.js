@@ -1,4 +1,4 @@
-import { HTTP_STATUS } from "../../utils/constants.js";
+import { ERROR_CODES, HTTP_STATUS } from "../../utils/constants/Errors.js";
 import { ApiError } from "../ApiError.js";
 
 export class EnvironmentVariableError extends ApiError {
@@ -11,7 +11,7 @@ export class EnvironmentVariableError extends ApiError {
       message,
       HTTP_STATUS.INTERNAL_SERVER_ERROR,
       details,
-      "ENVIRONMENT_ERROR"
+      ERROR_CODES.ENVIRONMENT
     );
     this.variableName = variableName;
     this.name = "EnvironmentError";

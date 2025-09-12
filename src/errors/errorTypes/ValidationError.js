@@ -1,9 +1,9 @@
 import { ApiError } from "../ApiError.js";
-import { HTTP_STATUS } from "../../utils/constants.js";
+import { ERROR_CODES, HTTP_STATUS } from "../../utils/constants/Errors.js";
 
 export class ValidationError extends ApiError {
   constructor(message = "Validation failed", details = null) {
-    super(message, HTTP_STATUS.BAD_REQUEST, details, "VALIDATION_ERROR");
+    super(message, HTTP_STATUS.BAD_REQUEST, details, ERROR_CODES.VALIDATION);
     this.name = "ValidationError";
   }
 

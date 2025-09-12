@@ -1,12 +1,12 @@
 import { AppError } from "./AppError.js";
-import { HTTP_STATUS } from "../utils/constants.js";
+import { ERROR_CODES, HTTP_STATUS } from "../utils/constants/Errors.js";
 
 export class ApiError extends AppError {
   constructor(
     message = "Internal Server Error",
     statusCode = HTTP_STATUS.INTERNAL_SERVER_ERROR,
     details = null,
-    errorCode = "INTERNAL_ERROR"
+    errorCode = ERROR_CODES.INTERNAL
   ) {
     super(message, statusCode, details);
     this.errorCode = errorCode;
@@ -23,28 +23,25 @@ export class ApiError extends AppError {
       message,
       HTTP_STATUS.BAD_REQUEST,
       details,
-      "BAD_REQUEST"
+      ERROR_CODES.BAD_REQUEST
     );
   }
 
   static forbidden(message = "Forbidden", details = null) {
-    return new ApiError(message, HTTP_STATUS.FORBIDDEN, details, "FORBIDDEN");
-  }
-
-  static notFound(message = "Resource not found", details = null) {
-    return new ApiError(message, HTTP_STATUS.NOT_FOUND, details, "NOT_FOUND");
+    return new ApiError(
+      message,
+      HTTP_STATUS.FORBIDDEN,
+      details,
+      ERROR_CODES.FORBIDDEN
+    );
   }
 
   static conflict(message = "Conflict", details = null) {
-    return new ApiError(message, HTTP_STATUS.CONFLICT, details, "CONFLICT");
-  }
-
-  static validation(message = "Validation failed", details = null) {
     return new ApiError(
       message,
-      HTTP_STATUS.BAD_REQUEST,
+      HTTP_STATUS.CONFLICT,
       details,
-      "VALIDATION_ERROR"
+      ERROR_CODES.CONFLICT
     );
   }
 
