@@ -32,8 +32,8 @@ class DatabaseConnnection {
   async syncModels() {
     try {
       await Database.getSequelize().sync({
-        force: true,
-        // alter: env.isDevelopment(),
+        // force: true,
+        alter: env.isDevelopment(),
       });
     } catch (error) {
       throw new DatabaseError("Model synchronization failed:", error);
