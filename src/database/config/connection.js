@@ -25,7 +25,7 @@ class DatabaseConnnection {
 
       return { Database, models: this.initializedModels };
     } catch (error) {
-      throw DatabaseError.catch("Database connection failed:", error);
+      throw new DatabaseError("Database connection failed: " + error.message);
     }
   }
 
@@ -36,7 +36,7 @@ class DatabaseConnnection {
         alter: env.isDevelopment(),
       });
     } catch (error) {
-      throw new DatabaseError("Model synchronization failed:", error);
+      throw new DatabaseError("Model synchronization failed: " + error.message);
     }
   }
 

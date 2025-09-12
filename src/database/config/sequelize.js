@@ -38,16 +38,19 @@ class Database {
       await this.testConnection();
       return this.sequelize;
     } catch (error) {
-      throw DatabaseError.catch("Database initialization failed:", error);
+      throw new DatabaseError(
+        "Sequelize initialization failed: " + error.meessage
+      );
     }
   }
 
   async testConnection() {
     try {
       await this.sequelize.authenticate();
-      console.log(" PostgreSQL connection established");
     } catch (error) {
-      throw new DatabaseError(" Unable to connect to PostgreSQL:", error);
+      throw new DatabaseError(
+        " Unable to connect to PostgreSQL: " + error.meessage
+      );
     }
   }
 

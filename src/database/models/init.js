@@ -44,7 +44,7 @@ export const initializeModels = async () => {
 
     return models;
   } catch (error) {
-    throw new DatabaseError("Model initialization failed:", error);
+    throw new DatabaseError("Model initialization failed: " + error.message);
   }
 };
 

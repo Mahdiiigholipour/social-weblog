@@ -14,7 +14,7 @@ export default class Post extends BaseModel {
         userId: {
           type: DataTypes.UUID,
           allowNull: false,
-          references: { model: "user", key: "id" },
+          references: { model: "User", key: "id" },
           onDelete: "CASCADE",
         },
         title: {
