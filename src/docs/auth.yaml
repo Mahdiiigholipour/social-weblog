@@ -47,3 +47,50 @@ paths:
           description: duplicate username
         "500":
           description: Internal Server Error
+
+  /auth/login:
+    post:
+      summary: Login to account
+      description: Login to user account with username & password
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                  description: unique username
+                  example: "User_01"
+                password:
+                  type: string
+                  format: password
+                  minLength: 8
+                  example: "Str0nG_P@$$w0rD"
+      responses:
+        "200":
+          description: User login successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: User login succussfully
+                  userId:
+                    type: string
+                    example: "4b1e4567-8b01-71c4-617d-2e6f3e5767db"
+                  accessToken:
+                    type: string
+                    example: a hashed string
+        "401":
+          description: Invalid credentials.
+        "500":
+          description: Internal Server Error
