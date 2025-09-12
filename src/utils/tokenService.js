@@ -56,6 +56,12 @@ export default class Token {
     };
   }
 
+  getRefreshTokenExpiresAt() {
+    return new Date(
+      Date.now() + this.refreshTokenExpDays * 24 * 60 * 60 * 1000
+    );
+  }
+
   verifyRefreshHash(refreshToken, storedHash) {
     const computedHash = crypto
       .createHmac("sha256", this.refreshTokenHashSecret)
