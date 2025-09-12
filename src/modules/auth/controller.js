@@ -57,6 +57,7 @@ export default class AuthController {
 
     const result = await this.authService.logout(raw);
 
-    res.clearCookie("refreshToken");
+    res.clearCookie("refreshToken", OPTIONS.cookieOptions);
+    res.status(200).json({ message: "Logged out" });
   };
 }

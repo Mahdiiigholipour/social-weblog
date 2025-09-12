@@ -61,11 +61,7 @@ export default class AuthService {
     if (!raw) throw AuthenticationError.noToken();
 
     const { hash } = this.tokenService.genRefreshHash(raw);
-    const tokenRecord = await this.tokenModel.findOne({
-      where: { tokenHash: hash },
-    });
-
-    if (!tokenRecord) throw AuthenticationError.invalidToken();
+    const tokenRecord = await this.tokenModel.findByHash(hash);
 
     if (tokenRecord.revoked) {
       await this.tokenModel.revokeUserTokens(tokenRecord.userId);
@@ -95,5 +91,16 @@ export default class AuthService {
     const { token: access } = this.tokenService.signAccessToken(user);
 
     return { refreshToken: newRaw, accessToken: access };
+  };
+
+  logout = async (raw, reqData) => {
+    if (raw) {
+      const { hash } = this.tokenService.genRefreshHash(raw);
+      await this.tokenModel.update(
+        { revoked: true, revokedByIp: reqData.ip },
+        { where: { tokenHash: hash } }
+      );
+    }
+    return true;
   };
 }
