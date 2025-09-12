@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import BaseModel from "../BaseModel.js";
-import { POST_STATUS } from "../../../utils/constants.js";
+import { POST_STATUS } from "../../../utils/constants/Database.js";
 
 export default class Post extends BaseModel {
   static init(sequelize) {

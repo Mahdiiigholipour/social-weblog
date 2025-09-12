@@ -1,5 +1,5 @@
 import { AuthenticationError } from "../../errors/index.js";
-import { OPTIONS } from "../../utils/constants.js";
+import { OPTIONS } from "../../utils/constants/Shared.js";
 
 export default class AuthController {
   constructor(authService) {

@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import { BaseModel } from "../BaseModel.js";
-import { REGEX } from "../../../utils/constants.js";
+import { REGEX } from "../../../utils/constants/Shared.js";
 import { DatabaseError } from "../../../errors/index.js";
 import { USER_ROLES } from "../../../utils/constants/Database.js";
 

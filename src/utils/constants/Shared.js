@@ -1,15 +1,8 @@
-import { env } from "../core/config/environment.config.js";
-
+import { env } from "../../core/config/environment.config.js";
 export const REGEX = {
   USERNAME: /^[A-Za-z][A-Za-z0-9_]{2,15}$/, // Starting with a letter (uppercase or lowercase), Containing only letters, numbers, and underscores, Having a length between 3 and 16 characters.
   PASSWORD:
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/, // Minimum length of 8 characters, At least one uppercase letter, At least one lowercase letter, At least one digit, At least one special character (e.g., !@#$%^&*)
-};
-
-export const POST_STATUS = {
-  DRAFT: "draft",
-  PUBLISHED: "published",
-  ARCHIVED: "archived",
 };
 
 export const OPTIONS = {
