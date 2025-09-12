@@ -1,5 +1,5 @@
-import { AuthenticationError } from "../errors";
-import Token from "../utils/tokenService";
+import { AuthenticationError } from "../errors/index.js";
+import Token from "../utils/tokenService.js";
 
 export const authenticate = async (req, res, next) => {
   const tokenService = new Token();

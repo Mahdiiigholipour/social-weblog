@@ -11,10 +11,12 @@ const tokenService = new Token();
 const Service = new AuthService(User, tokenService, RefreshToken);
 const Controller = new AuthController(Service);
 
-export const router = Router();
+const router = Router();
 
 router.post("/register", Handle(Controller.register));
 router.post("/login", Handle(Controller.login));
 router.post("/refresh", authenticate, Handle(Controller.refresh));
 router.post("/logout", authenticate, Handle(Controller.logout));
 router.post("/logoutAll", Handle(Controller.revokeAll));
+
+export default router;

@@ -1,10 +1,10 @@
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import { ErrorHandler, NotFoundError } from "./errors/index.js";
 import dbConnection from "./database/config/connection.js";
 import { SetupSwagger } from "./docs/swagger.js";
-import { router } from "./modules/auth/routes.js";
-import cookieParser from "cookie-parser";
+import { indexRouter } from "./modules/index.routes.js";
 
 const app = express();
 
@@ -16,8 +16,8 @@ app.use(express.urlencoded({ extended: true }));
 //Connect to database
 await dbConnection.connect();
 
-//
-app.use("/auth", router);
+//Setup routes
+app.use("/api", indexRouter);
 
 //Setup swagger
 app.use("/api-docs", ...SetupSwagger);
