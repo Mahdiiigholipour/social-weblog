@@ -38,7 +38,12 @@ paths:
                   userId:
                     type: string
                     example: "4b1e4567-8b01-71c4-617d-2e6f3e5767db"
+                  accessToken:
+                    type: string
+                    example: a hashed string
         "400":
-          description: Invalid inputs or duplicate username
+          description: Invalid inputs
+        "409":
+          description: duplicate username
         "500":
           description: Internal Server Error
