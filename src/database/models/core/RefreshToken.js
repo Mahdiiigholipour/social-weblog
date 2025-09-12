@@ -26,7 +26,6 @@ export default class RefreshToken extends BaseModel {
         createdByIp: { type: DataTypes.STRING },
         revokedByIp: { type: DataTypes.STRING },
         userAgent: { type: DataTypes.STRING },
-        ip: { type: DataTypes.STRING(20) },
         metadata: { type: DataTypes.JSONB, allowNull: true },
       },
       {

@@ -2,8 +2,10 @@ import { Router } from "express";
 import AuthController from "./controller.js";
 import AuthService from "./service.js";
 import { User } from "../../database/models/index.js";
+import Token from "../../utils/tokenService.js";
 
-const Service = new AuthService(User);
+const tokenService = new Token();
+const Service = new AuthService(User, tokenService);
 const Controller = new AuthController(Service);
 
 export const router = Router();
