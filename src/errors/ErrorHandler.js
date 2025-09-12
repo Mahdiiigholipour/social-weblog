@@ -75,7 +75,7 @@ export class ErrorHandler {
 
   static sendErrorResponse(error, res) {
     const statusCode = error.statusCode || 500;
-    const response = error.toJson
+    const developmentRes = error.toJson
       ? error.toJson()
       : {
           success: false,
@@ -83,8 +83,17 @@ export class ErrorHandler {
           statusCode,
           ...(env.isDevelopment() && { stack: error.stack }),
         };
+    const productionRes = {
+      message: error.message,
+      statusCode,
+      success: false,
+      details: error.details,
+      timestamp: error.timestamp,
+    };
 
-    res.status(statusCode).json(response);
+    res
+      .status(statusCode)
+      .json(env.isDevelopment() ? developmentRes : productionRes);
   }
 
   static asyncHandler(fn) {
