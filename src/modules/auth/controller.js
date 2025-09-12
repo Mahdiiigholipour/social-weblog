@@ -1,14 +1,15 @@
 export default class AuthController {
-  constructor(service) {
-    this.service = service;
+  constructor(authService) {
+    this.authService = authService;
   }
 
-  async register(req, res, next) {
+  register = async (req, res, next) => {
     try {
       const { username, password } = req.body;
-      const result = await this.service.register({ username, password });
+      const result = await this.authService.register({ username, password });
+      res.status(201).json({ message: "created.", userId: result.id });
     } catch (error) {
       next(error);
     }
-  }
+  };
 }

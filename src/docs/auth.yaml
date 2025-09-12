@@ -24,7 +24,7 @@ paths:
                   format: password
                   minLength: 8
                   example: "Str0nG_P@$$w0rD"
-      response:
+      responses:
         "201":
           description: User created succussfully
           content:

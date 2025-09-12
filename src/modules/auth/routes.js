@@ -1,10 +1,11 @@
 import { Router } from "express";
+import AuthController from "./controller.js";
+import AuthService from "./service.js";
+import { User } from "../../database/models/index.js";
 
-const router = Router();
+const Service = new AuthService(User);
+const Controller = new AuthController(Service);
 
-router.post("/register");
-router.post("/login");
-router.post("/refresh-token");
-router.post("logout");
+export const router = Router();
 
-export default router;
+router.post("/register", Controller.register);
