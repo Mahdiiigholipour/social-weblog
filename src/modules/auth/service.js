@@ -103,4 +103,8 @@ export default class AuthService {
     }
     return true;
   };
+
+  revokeAll = async (userId) => {
+    await this.tokenModel.revokeUserTokens(userId);
+  };
 }
