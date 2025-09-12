@@ -1,5 +1,5 @@
 import { config } from "dotenv";
-import { EnvironmentVariableError } from "../../errors/index.js";
+import { EnvironmentVariableError } from "../errors/index.js";
 config();
 export class EnvironmentConfig {
   static get database() {

@@ -1,7 +1,7 @@
 import { ApiError } from "./ApiError.js";
 import { DatabaseError } from "./errorTypes/DatabaseError.js";
 import { ValidationError } from "./errorTypes/ValidationError.js";
-import { env } from "../core/config/environment.config.js";
+import { env } from "../config/env.js";
 import { EnvironmentVariableError } from "./errorTypes/EnvironmentVariableError.js";
 
 export class ErrorHandler {

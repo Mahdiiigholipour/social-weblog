@@ -34,7 +34,7 @@ export default class AuthService {
 
   login = async ({ username, password }, reqData) => {
     // Check user exist
-    const user = await User.findOne({
+    const user = await this.userModel.findOne({
       where: { username: username.toLowerCase() },
     });
     if (!user) throw AuthenticationError.invalidCredentials();

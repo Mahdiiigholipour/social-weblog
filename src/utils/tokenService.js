@@ -1,5 +1,5 @@
 import JWT from "jsonwebtoken";
-import { env } from "../core/config/environment.config.js";
+import { env } from "../config/env.js";
 import crypto from "crypto";
 
 export default class Token {

@@ -1,6 +1,6 @@
 import http from "http";
 import app from "./src/app.js";
-import { env } from "./src/core/config/environment.config.js";
+import { env } from "./src/config/env.js";
 import { EnvironmentVariableError } from "./src/errors/index.js";
 
 try {

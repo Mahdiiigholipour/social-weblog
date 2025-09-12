@@ -1,4 +1,4 @@
-import { env } from "../core/config/environment.config.js";
+import { env } from "../config/env.js";
 export class AppError extends Error {
   constructor(message, statusCode, details = null) {
     super(message);

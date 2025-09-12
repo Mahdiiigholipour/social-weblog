@@ -1,4 +1,4 @@
-import { env } from "../../core/config/environment.config.js";
+import { env } from "../../config/env.js";
 import Database from "./sequelize.js";
 import models, { initializeModels } from "../models/init.js";
 import { DatabaseError } from "../../errors/index.js";

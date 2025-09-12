@@ -1,4 +1,4 @@
-import { env } from "../../core/config/environment.config.js";
+import { env } from "../../config/env.js";
 export const REGEX = {
   USERNAME: /^[A-Za-z][A-Za-z0-9_]{2,15}$/, // Starting with a letter (uppercase or lowercase), Containing only letters, numbers, and underscores, Having a length between 3 and 16 characters.
   PASSWORD:
