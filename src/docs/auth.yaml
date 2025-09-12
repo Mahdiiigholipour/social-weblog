@@ -94,3 +94,25 @@ paths:
           description: Invalid credentials.
         "500":
           description: Internal Server Error
+
+  /auth/refresh:
+    post:
+      summary: Refresh tokens
+      description: Refresh accessToken & refreshRaw
+      tags:
+        - Auth
+      responses:
+        "200":
+          description: Refresh tokens successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                    example: a hashed string
+        "401":
+          description: Fail to refresh tokens
+        "500":
+          description: Internal Server Error
