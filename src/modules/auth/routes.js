@@ -7,8 +7,7 @@ import ErrorHandler from "../../errors/ErrorHandler.js";
 
 const Handle = ErrorHandler.asyncHandler;
 const tokenService = new Token();
-const tokenModel = new RefreshToken();
-const Service = new AuthService(User, tokenService, tokenModel);
+const Service = new AuthService(User, tokenService, RefreshToken);
 const Controller = new AuthController(Service);
 
 export const router = Router();

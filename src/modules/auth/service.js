@@ -21,7 +21,6 @@ export default class AuthService {
 
     // Generate accessToken and create refreshToken
     const { accessToken, raw, hash } = this.tokenService.autoSign(user);
-
     await this.tokenModel.create({
       userId: user.id,
       tokenHash: hash,
@@ -36,11 +35,12 @@ export default class AuthService {
   login = async ({ username, password }, reqData) => {
     // Check user exist
     const user = await User.findOne({ where: { username: username } });
-    if (!user) throw new AuthenticationError.invalidCredentials();
+    if (!user) throw AuthenticationError.invalidCredentials();
 
     // Check password
-    const isCorrect = await verifyPassword(password, user.hashedPassword);
-    if (!isCorrect) throw new AuthenticationError.invalidCredentials();
+    const isCorrect = await verifyPassword(password, user.passwordHash);
+
+    if (!isCorrect) throw AuthenticationError.invalidCredentials();
 
     // Process Tokens
     const { accessToken, raw, hash } = this.tokenService.autoSign(user);
@@ -52,6 +52,6 @@ export default class AuthService {
       userAgent: reqData.userAgent,
     });
 
-    return { accessToken, refreshToken: raw };
+    return { userId: user.id, accessToken, refreshToken: raw };
   };
 }

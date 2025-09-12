@@ -5,5 +5,5 @@ export const hashPassword = async (password) => {
 };
 
 export const verifyPassword = async (password, hashedPassword) => {
-  await verify(hashedPassword, password);
+  return await verify(hashedPassword, password);
 };

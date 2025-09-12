@@ -6,13 +6,13 @@ export default class AuthController {
   }
 
   register = async (req, res, next) => {
-    console.log(req.cookies.refreshToken);
-    const userData = {
-      username: req.body.username,
-      password: req.body.password,
-    };
+    const { username, password } = req.body;
     const reqData = { ip: req.ip, userAgent: req.get("User-Agent") };
-    const result = await this.authService.register(userData, reqData);
+
+    const result = await this.authService.register(
+      { username, password },
+      reqData
+    );
 
     res.cookie("refreshToken", result.refreshToken, OPTIONS.cookieOptions);
     res.status(201).json({
@@ -24,6 +24,19 @@ export default class AuthController {
 
   login = async (req, res, next) => {
     const { username, password } = req.body;
-    const result = await this.authService.login({ username, password });
+    const reqData = {
+      ip: req.ip,
+      userAgent: req.get("User-Agent"),
+    };
+
+    const result = await this.authService.login(
+      { username, password },
+      reqData
+    );
+
+    res.cookie("refreshToken", result.refreshToken, OPTIONS.cookieOptions);
+    res
+      .status(200)
+      .json({ message: "User login successfully", userId: result.userId });
   };
 }
