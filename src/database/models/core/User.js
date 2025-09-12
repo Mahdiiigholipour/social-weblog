@@ -2,6 +2,7 @@ import { DataTypes } from "sequelize";
 import { BaseModel } from "../BaseModel.js";
 import { REGEX } from "../../../utils/constants.js";
 import { DatabaseError } from "../../../errors/index.js";
+import { USER_ROLES } from "../../../utils/constants/Database.js";
 
 export default class User extends BaseModel {
   static init(sequelize) {
@@ -24,6 +25,10 @@ export default class User extends BaseModel {
           unique: true,
           validate: { isEmail: true, len: [5, 100] },
         },
+        role: {
+          type: DataTypes.ENUM(Object.values(USER_ROLES)),
+          defaultValue: USER_ROLES.USER,
+        },
         passwordHash: {
           type: DataTypes.STRING(255),
           allowNull: false,
@@ -34,6 +39,7 @@ export default class User extends BaseModel {
         modelName: "User",
         tableName: "user",
         timestamps: true,
+        indexes: [{ fields: ["role"] }],
         hooks: {
           beforeSave: (user, {}) => {
             user.username = user.username.toLowerCase();
