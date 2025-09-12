@@ -15,3 +15,4 @@ export const router = Router();
 router.post("/register", Handle(Controller.register));
 router.post("/login", Handle(Controller.login));
 router.post("/refresh", Handle(Controller.refresh));
+router.post("/logout", Handle(Controller.logout));

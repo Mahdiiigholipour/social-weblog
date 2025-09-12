@@ -51,4 +51,12 @@ export default class AuthController {
     res.cookie("refreshToken", result.refreshToken, OPTIONS.cookieOptions);
     res.status(200).json({ accessToken: result.accessToken });
   };
+
+  logout = async (req, res, next) => {
+    const raw = req.cookies.refreshToken;
+
+    const result = await this.authService.logout(raw);
+
+    res.clearCookie("refreshToken");
+  };
 }
