@@ -27,10 +27,10 @@ export class EnvironmentConfig {
   }
   static get security() {
     return {
-      accessSec: this.getRequired("JWT_ACCESS_TOKEN"),
+      accessSec: this.getRequired("JWT_ACCESS_SECRET"),
       accessExp: this.get("JWT_ACCESS_EXPIRES", "15m"),
       refreshHashSec: this.getRequired("REFRESH_TOKEN_HASH_SECRET"),
-      refreshExp: this.get("REFRESH_TOKEN_EXPIRES", "15d"),
+      refreshExp: this.getNumber("REFRESH_TOKEN_EXPIRES", 15),
     };
   }
 
@@ -79,6 +79,8 @@ export class EnvironmentConfig {
       "POSTGRES_NAME",
       "POSTGRES_USER",
       "POSTGRES_PASSWORD",
+      "JWT_ACCESS_SECRET",
+      "REFRESH_TOKEN_HASH_SECRET",
     ];
     const missingVars = [];
 

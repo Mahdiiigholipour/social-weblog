@@ -1,4 +1,4 @@
-import { env } from "../core/config/environment.config";
+import { env } from "../core/config/environment.config.js";
 
 export const HTTP_STATUS = {
   OK: 200,

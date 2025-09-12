@@ -21,7 +21,7 @@ export default class AuthService {
       passwordHash: hashedPassword,
     });
 
-    const accessToken = this.tokenService.signAccessToken(user);
+    const { token } = this.tokenService.signAccessToken(user);
     const { raw, hash } = this.tokenService.genRefreshHash();
 
     await RefreshToken.create({
@@ -32,6 +32,6 @@ export default class AuthService {
       userAgent: reqData.userAgent,
     });
 
-    return { userId: user.id, refreshToken: raw, accessToken };
+    return { userId: user.id, refreshToken: raw, accessToken: token };
   };
 }
