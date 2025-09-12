@@ -1,3 +1,5 @@
+import { env } from "../core/config/environment.config";
+
 export const HTTP_STATUS = {
   OK: 200,
   CREATED: 201,
@@ -19,4 +21,13 @@ export const POST_STATUS = {
   DRAFT: "draft",
   PUBLISHED: "published",
   ARCHIVED: "archived",
+};
+
+export const OPTIONS = {
+  cookieOptions: {
+    httpOnly: true,
+    secure: env.isProduction(),
+    sameSite: "lax",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+  },
 };
