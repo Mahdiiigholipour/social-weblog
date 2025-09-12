@@ -10,7 +10,7 @@ export default class AuthService {
   }
 
   register = async ({ username, password }, reqData) => {
-    await this.userModel.NotExist(username);
+    await this.userModel.NotExist(username.toLowerCase());
 
     // Create user
     const hashedPassword = await hashPassword(password);
@@ -34,7 +34,9 @@ export default class AuthService {
 
   login = async ({ username, password }, reqData) => {
     // Check user exist
-    const user = await User.findOne({ where: { username: username } });
+    const user = await User.findOne({
+      where: { username: username.toLowerCase() },
+    });
     if (!user) throw AuthenticationError.invalidCredentials();
 
     // Check password

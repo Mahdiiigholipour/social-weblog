@@ -34,7 +34,11 @@ export default class User extends BaseModel {
         modelName: "User",
         tableName: "user",
         timestamps: true,
-        hooks: {},
+        hooks: {
+          beforeSave: (user, {}) => {
+            user.username = user.username.toLowerCase();
+          },
+        },
       }
     );
   }

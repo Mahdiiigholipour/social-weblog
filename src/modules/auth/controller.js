@@ -37,6 +37,10 @@ export default class AuthController {
     res.cookie("refreshToken", result.refreshToken, OPTIONS.cookieOptions);
     res
       .status(200)
-      .json({ message: "User login successfully", userId: result.userId });
+      .json({
+        message: "User login successfully",
+        userId: result.userId,
+        accessToken: result.accessToken,
+      });
   };
 }
