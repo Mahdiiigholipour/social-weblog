@@ -7,7 +7,7 @@ export class AuthenticationError extends ApiError {
   }
 
   static invalidCredentials() {
-    return new AuthenticationError("Invalid email or password");
+    return new AuthenticationError("Invalid username or password");
   }
 
   static invalidToken() {
