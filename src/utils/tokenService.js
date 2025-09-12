@@ -1,0 +1,67 @@
+import JWT from "jsonwebtoken";
+import { env } from "../core/config/environment.config";
+import crypto from "crypto";
+
+export default class Token {
+  constructor(
+    accessTokenSecret,
+    accessTokenExpires,
+    refreshTokenHashSecret,
+    refreshTokenExpiresDays
+  ) {
+    this.accessTokenSecret = accessTokenSecret || env.security.accessSec;
+    this.accessTokenExp = accessTokenExpires || env.security.accessExp;
+    this.refreshTokenHashSecret =
+      refreshTokenHashSecret || env.security.refreshHashSec;
+    this.refreshTokenExpDays =
+      refreshTokenExpiresDays || env.security.refreshExp;
+  }
+
+  // get refreshTokenExpDays(){}
+
+  signAccessToken(user) {
+    try {
+      return {
+        token: JWT.sign(
+          { sub: user.id, role: user.role },
+          this.accessTokenSecret,
+          {
+            expiresIn: this.accessTokenExp,
+            jwtid: crypto.randomUUID(),
+          }
+        ),
+      };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  verifyAccessToken(token) {
+    try {
+      return JWT.verify(token, this.accessTokenSecret);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  genRefreshHash(refeshToken = null) {
+    const refreshRaw = refeshToken || crypto.randomBytes(64).toString("hex");
+
+    return {
+      raw: refreshRaw ? null : refreshRaw,
+      hash: crypto
+        .createHmac("sha256", this.refreshTokenHashSecret)
+        .update(refreshRaw)
+        .digest("hex"),
+    };
+  }
+
+  verifyRefreshHash(refreshToken, storedHash) {
+    const computedHash = crypto
+      .createHmac("sha256", this.refreshTokenHashSecret)
+      .update(refreshToken)
+      .digest("hex");
+
+    return computedHash === storedHash;
+  }
+}
