@@ -67,6 +67,6 @@ export default class AuthController {
     await this.authService.revokeAll(userId);
 
     res.clearCookie("refreshToken", OPTIONS.cookieOptions);
-    res.status(200).json({ message: "All sessions revoked" });
+    res.status(200).json({ message: "Logged out from all sessions" });
   };
 }

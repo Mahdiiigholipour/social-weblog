@@ -116,3 +116,41 @@ paths:
           description: Fail to refresh tokens
         "500":
           description: Internal Server Error
+  /auth/logout:
+    post:
+      summary: Logout account
+      description: Logout from current session
+      tags:
+        - Auth
+      responses:
+        "200":
+          description: Logout successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Logged out
+        "500":
+          description: Internal Server Error
+  /auth/revokeAll:
+    post:
+      summary: Logout account
+      description: Logout from all sessions
+      tags:
+        - Auth
+      responses:
+        "200":
+          description: Logout successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Logged out from all sessions
+        "500":
+          description: Internal Server Error
