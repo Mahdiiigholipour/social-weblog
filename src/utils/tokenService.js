@@ -17,8 +17,6 @@ export default class Token {
       refreshTokenExpiresDays || env.security.refreshExp;
   }
 
-  // get refreshTokenExpDays(){}
-
   signAccessToken(user) {
     try {
       return {
@@ -44,14 +42,14 @@ export default class Token {
     }
   }
 
-  genRefreshHash(refeshToken = null) {
-    const refreshRaw = refeshToken || crypto.randomBytes(64).toString("hex");
+  genRefreshHash(providedRaw = null) {
+    const raw = providedRaw || crypto.randomBytes(64).toString("hex");
 
     return {
-      raw: refreshRaw ? null : refreshRaw,
+      raw,
       hash: crypto
         .createHmac("sha256", this.refreshTokenHashSecret)
-        .update(refreshRaw)
+        .update(raw)
         .digest("hex"),
     };
   }
