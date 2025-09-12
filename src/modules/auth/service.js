@@ -56,4 +56,44 @@ export default class AuthService {
 
     return { userId: user.id, accessToken, refreshToken: raw };
   };
+
+  refresh = async (raw, reqData) => {
+    if (!raw) throw AuthenticationError.noToken();
+
+    const { hash } = this.tokenService.genRefreshHash(raw);
+    const tokenRecord = await this.tokenModel.findOne({
+      where: { tokenHash: hash },
+    });
+
+    if (!tokenRecord) throw AuthenticationError.invalidToken();
+
+    if (tokenRecord.revoked) {
+      await this.tokenModel.revokeUserTokens(tokenRecord.userId);
+      console.log("reuse detected!");
+      throw AuthenticationError.invalidToken();
+    }
+
+    if (tokenRecord.expiresAt < new Date())
+      throw AuthenticationError.tokenExpired();
+
+    const { raw: newRaw, hash: newHash } = this.tokenService.genRefreshHash();
+    const newRec = await this.tokenModel.create({
+      userId: tokenRecord.userId,
+      tokenHash: newHash,
+      expiresAt: this.tokenService.getRefreshTokenExpiresAt(),
+      createdByIp: reqData.ip,
+      userAgent: reqData.userAgent,
+    });
+
+    await tokenRecord.update({
+      revoked: true,
+      revokedByIp: reqData.ip,
+      replacedBy: newRec.id,
+    });
+
+    const user = await this.userModel.findById(tokenRecord.userId);
+    const { token: access } = this.tokenService.signAccessToken(user);
+
+    return { refreshToken: newRaw, accessToken: access };
+  };
 }

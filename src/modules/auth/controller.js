@@ -1,3 +1,4 @@
+import { AuthenticationError } from "../../errors/index.js";
 import { OPTIONS } from "../../utils/constants.js";
 
 export default class AuthController {
@@ -35,12 +36,19 @@ export default class AuthController {
     );
 
     res.cookie("refreshToken", result.refreshToken, OPTIONS.cookieOptions);
-    res
-      .status(200)
-      .json({
-        message: "User login successfully",
-        userId: result.userId,
-        accessToken: result.accessToken,
-      });
+    res.status(200).json({
+      message: "User login successfully",
+      userId: result.userId,
+      accessToken: result.accessToken,
+    });
+  };
+
+  refresh = async (req, res, next) => {
+    const raw = req.cookies.refreshToken;
+    const reqData = { ip: req.ip, userAgent: req.get("User-Agent") };
+    const result = await this.authService.refresh(raw, reqData);
+
+    res.cookie("refreshToken", result.refreshToken, OPTIONS.cookieOptions);
+    res.status(200).json({ accessToken: result.accessToken });
   };
 }

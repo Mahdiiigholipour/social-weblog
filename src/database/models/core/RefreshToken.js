@@ -45,4 +45,8 @@ export default class RefreshToken extends BaseModel {
   static associate(models) {
     this.belongsTo(models.User, { foreignKey: "user_id", as: "user" });
   }
+
+  static revokeUserTokens(userId) {
+    this.update({ revoked: true }, { where: { userId } });
+  }
 }
