@@ -1,30 +1,28 @@
 import { RefreshToken, User } from "../../database/models/index.js";
-import { hashPassword } from "../../utils/passwordHashing.js";
+import { AuthenticationError } from "../../errors/index.js";
+import { hashPassword, verifyPassword } from "../../utils/passwordHashing.js";
 
 export default class AuthService {
-  constructor(userModel, token) {
+  constructor(userModel, token, tokenModel) {
     this.userModel = userModel;
+    this.tokenModel = tokenModel;
     this.tokenService = token;
   }
 
-  register = async (userData, reqData) => {
-    // 1: user not exist [OK]
-    // 2: hashing password [Ok]
-    // 3: generate tokens
+  register = async ({ username, password }, reqData) => {
+    await this.userModel.NotExist(username);
 
-    await this.userModel.NotExist(userData.username);
-
-    const hashedPassword = await hashPassword(userData.password);
-
+    // Create user
+    const hashedPassword = await hashPassword(password);
     const user = await this.userModel.create({
-      username: userData.username,
+      username: username,
       passwordHash: hashedPassword,
     });
 
-    const { token } = this.tokenService.signAccessToken(user);
-    const { raw, hash } = this.tokenService.genRefreshHash();
+    // Generate accessToken and create refreshToken
+    const { accessToken, raw, hash } = this.tokenService.autoSign(user);
 
-    await RefreshToken.create({
+    await this.tokenModel.create({
       userId: user.id,
       tokenHash: hash,
       expiresAt: this.tokenService.getRefreshTokenExpiresAt(),
@@ -32,6 +30,28 @@ export default class AuthService {
       userAgent: reqData.userAgent,
     });
 
-    return { userId: user.id, refreshToken: raw, accessToken: token };
+    return { userId: user.id, refreshToken: raw, accessToken };
+  };
+
+  login = async ({ username, password }, reqData) => {
+    // Check user exist
+    const user = await User.findOne({ where: { username: username } });
+    if (!user) throw new AuthenticationError.invalidCredentials();
+
+    // Check password
+    const isCorrect = await verifyPassword(password, user.hashedPassword);
+    if (!isCorrect) throw new AuthenticationError.invalidCredentials();
+
+    // Process Tokens
+    const { accessToken, raw, hash } = this.tokenService.autoSign(user);
+    await this.tokenModel.create({
+      userId: user.id,
+      tokenHash: hash,
+      expiresAt: this.tokenService.getRefreshTokenExpiresAt(),
+      createdByIp: reqData.ip,
+      userAgent: reqData.userAgent,
+    });
+
+    return { accessToken, refreshToken: raw };
   };
 }

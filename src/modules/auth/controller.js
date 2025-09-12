@@ -6,23 +6,24 @@ export default class AuthController {
   }
 
   register = async (req, res, next) => {
-    try {
-      console.log(req.cookies.refreshToken);
-      const userData = {
-        username: req.body.username,
-        password: req.body.password,
-      };
-      const reqData = { ip: req.ip, userAgent: req.get("User-Agent") };
-      const result = await this.authService.register(userData, reqData);
+    console.log(req.cookies.refreshToken);
+    const userData = {
+      username: req.body.username,
+      password: req.body.password,
+    };
+    const reqData = { ip: req.ip, userAgent: req.get("User-Agent") };
+    const result = await this.authService.register(userData, reqData);
 
-      res.cookie("refreshToken", result.refreshToken, OPTIONS.cookieOptions);
-      res.status(201).json({
-        message: "User registered succussfully",
-        userId: result.userId,
-        accessToken: result.accessToken,
-      });
-    } catch (error) {
-      next(error);
-    }
+    res.cookie("refreshToken", result.refreshToken, OPTIONS.cookieOptions);
+    res.status(201).json({
+      message: "User registered succussfully",
+      userId: result.userId,
+      accessToken: result.accessToken,
+    });
+  };
+
+  login = async (req, res, next) => {
+    const { username, password } = req.body;
+    const result = await this.authService.login({ username, password });
   };
 }
