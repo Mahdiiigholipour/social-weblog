@@ -35,11 +35,7 @@ export default class Token {
   }
 
   verifyAccessToken(token) {
-    try {
-      return JWT.verify(token, this.accessTokenSecret);
-    } catch (error) {
-      throw error;
-    }
+    return JWT.verify(token, this.accessTokenSecret);
   }
 
   genRefreshHash(providedRaw = null) {
