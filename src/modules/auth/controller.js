@@ -55,9 +55,18 @@ export default class AuthController {
   logout = async (req, res, next) => {
     const raw = req.cookies.refreshToken;
 
-    const result = await this.authService.logout(raw);
+    await this.authService.logout(raw);
 
     res.clearCookie("refreshToken", OPTIONS.cookieOptions);
     res.status(200).json({ message: "Logged out" });
+  };
+
+  revokeAll = async (req, res, next) => {
+    const userId = req.user.id;
+
+    await this.authService.revokeAll(userId);
+
+    res.clearCookie("refreshToken", OPTIONS.cookieOptions);
+    res.status(200).json({ message: "All sessions revoked" });
   };
 }
