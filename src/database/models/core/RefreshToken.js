@@ -35,7 +35,7 @@ export default class RefreshToken extends BaseModel {
         timestamps: true,
         indexes: [
           { fields: ["user_id"] },
-          { unique: true, fields: ["token_hash", "expires_at"] },
+          { unique: true, fields: ["token_hash"] },
           { fields: ["expires_at"] },
         ],
       }
